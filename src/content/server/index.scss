@@ -1,0 +1,64 @@
+@import '../../styles/theme.scss';
+.m-server {
+  .list {
+    display: flex;
+    flex-wrap: wrap;
+    .server {
+      width: 200px;
+      line-height: 1.8;
+      text-align: center;
+      border: 1px solid #EEE;
+      margin: 5px;
+      cursor: pointer;
+      position: relative;
+      padding: 10px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      .anticon {
+        font-size: 30px;
+      }
+      .anticon-pushpin-o {
+        font-size: 16px;
+        color: #666;
+        position: absolute;
+        top: 10px;
+        display: none;
+      }
+      &.active {
+        border-color: $primary-color;
+        .anticon {
+          color: $primary-color;
+          display: block;
+        }
+      }
+      &.disable {
+        border-style: dotted;
+        color: #DDD;
+        cursor: not-allowed;
+        .anticon {
+          color: #DDD;;
+        }
+      }
+      p {
+        margin-bottom: 0;
+      }
+      &:hover {
+        .ant-dropdown-trigger, .anticon-pushpin-o {
+          display: block;
+        }
+      }
+      .btn {
+        color: $primary-color;
+        cursor: pointer;
+      }
+      .ant-dropdown-trigger {
+        display: none;
+        position: absolute;
+        right: 5px;
+        top: 5px;
+        font-size: 20px;
+      }
+    }
+  }
+}

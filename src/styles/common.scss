@@ -1,0 +1,15 @@
+.f-df {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  &_l {
+    justify-content: flex-start;
+  }
+  &_r {
+    justify-content: flex-end;
+  }
+}
+.f-pointer {
+  cursor: pointer;
+}

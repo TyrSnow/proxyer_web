@@ -1,0 +1,40 @@
+.m-requestlist {
+  .u-request {
+    padding: 10px 15px;
+    border-bottom: 1px solid #F0F0F0;
+    position: relative;
+    flex-wrap: nowrap;
+    &:hover {
+      &:before {
+        content: '';
+        display: block;
+        width: 6px;
+        height: 6px;
+        border-radius: 100%;
+        background: #F00;
+        position: absolute;
+        top: 50%;
+        left: 5px;
+        margin-top: -3px;
+      }
+    }
+    &:last-child {
+      border-bottom: none;
+    }
+    .tags {
+      width: 150px;
+    }
+    .path {
+      width: 100%;
+      .anticon {
+        margin-left: 5px;
+      }
+    }
+    .cost {
+      width: 50px;
+    }
+    .control {
+      width: 200px;
+    }
+  }
+}

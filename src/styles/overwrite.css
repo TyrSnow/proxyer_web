@@ -1,0 +1,6 @@
+.ant-input-group > .ant-input-group-wrapper:last-child .ant-input-group > .ant-input:first-child {
+  border-bottom-left-radius: 0;
+  border-top-left-radius: 0; }
+
+.ant-input-group > .ant-input-group-wrapper:last-child {
+  top: 0; }

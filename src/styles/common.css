@@ -1,0 +1,12 @@
+.f-df {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap; }
+  .f-df_l {
+    justify-content: flex-start; }
+  .f-df_r {
+    justify-content: flex-end; }
+
+.f-pointer {
+  cursor: pointer; }

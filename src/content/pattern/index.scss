@@ -1,0 +1,35 @@
+.m-pattern {
+  .u-pattern {
+    padding: 10px;
+    flex-wrap: nowrap;
+    background: #FFF;
+    margin-bottom: 3px;
+    &.disable {
+      text-decoration: line-through;
+      .ant-tag {
+        color: #666;
+        background: #EEE;
+        border-color: #EEE;
+      }
+    }
+    .ant-switch {
+      margin-right: 20px;
+    }
+    .match {
+      width: 100%;
+      .url {
+        padding-right: 10px;
+      }
+    }
+    .handle {
+      width: 200px;
+      .anticon {
+        margin: 0 5px;
+        cursor: pointer;
+        &:hover {
+          color: #F00;
+        }
+      }
+    }
+  }
+}

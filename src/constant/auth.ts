@@ -1,0 +1,8 @@
+export enum AUTH_STATE {
+  INIT = 0,
+  SOLVING,
+  REGISTING,
+  LOGING,
+  LOGGED,
+  UNLOGED,
+}

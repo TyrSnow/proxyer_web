@@ -1,0 +1,5 @@
+.m-switchFormItem {
+  display: flex;
+  margin-top: 6px; }
+  .m-switchFormItem .ant-switch {
+    margin: 4px 10px 0 0; }

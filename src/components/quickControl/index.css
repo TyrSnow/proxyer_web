@@ -1,0 +1,7 @@
+.m-quickControl {
+  display: flex; }
+  .m-quickControl .btnIcon {
+    font-size: 20px; }
+
+.m-proxySelect {
+  margin: 0 10px; }

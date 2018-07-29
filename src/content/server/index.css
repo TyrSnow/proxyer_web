@@ -1,0 +1,47 @@
+.m-server .list {
+  display: flex;
+  flex-wrap: wrap; }
+  .m-server .list .server {
+    width: 200px;
+    line-height: 1.8;
+    text-align: center;
+    border: 1px solid #EEE;
+    margin: 5px;
+    cursor: pointer;
+    position: relative;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; }
+    .m-server .list .server .anticon {
+      font-size: 30px; }
+    .m-server .list .server .anticon-pushpin-o {
+      font-size: 16px;
+      color: #666;
+      position: absolute;
+      top: 10px;
+      display: none; }
+    .m-server .list .server.active {
+      border-color: #52C3DD; }
+      .m-server .list .server.active .anticon {
+        color: #52C3DD;
+        display: block; }
+    .m-server .list .server.disable {
+      border-style: dotted;
+      color: #DDD;
+      cursor: not-allowed; }
+      .m-server .list .server.disable .anticon {
+        color: #DDD; }
+    .m-server .list .server p {
+      margin-bottom: 0; }
+    .m-server .list .server:hover .ant-dropdown-trigger, .m-server .list .server:hover .anticon-pushpin-o {
+      display: block; }
+    .m-server .list .server .btn {
+      color: #52C3DD;
+      cursor: pointer; }
+    .m-server .list .server .ant-dropdown-trigger {
+      display: none;
+      position: absolute;
+      right: 5px;
+      top: 5px;
+      font-size: 20px; }
