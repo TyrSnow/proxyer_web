@@ -68,7 +68,7 @@ class PatternModal extends React.Component<PatternModalProps, ProxyModalState> {
   submit(fields: any) {
     // 处理结果
     if (fields.server === '') {
-      delete fields.server;
+      fields.server = null;
     }
     if (!fields.methods) {
       fields.methods = [];

@@ -8,11 +8,13 @@ export enum THROTTLE_TYPE {
   SPEED,
   DELAY,
   PAUSE,
+  DELAY_BLOCK,
 }
 
 export const THROTTLE_TYPE_LABEL = {
   [THROTTLE_TYPE.NONE]: '不处理',
   [THROTTLE_TYPE.SPEED]: '限速',
   [THROTTLE_TYPE.DELAY]: '延迟',
-  [THROTTLE_TYPE.PAUSE]: '暂停',
+  // [THROTTLE_TYPE.PAUSE]: '暂停',
+  [THROTTLE_TYPE.DELAY_BLOCK]: '延迟断开',
 }

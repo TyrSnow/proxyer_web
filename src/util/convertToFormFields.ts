@@ -5,6 +5,9 @@ function convertArrayList(arr: any[]): string[] {
 function convertObject(obj: object): object {
   const res = {};
   for (const key in obj) {
+    if (obj[key] === null) {
+      continue;
+    }
     if (typeof obj[key] !== 'function') {
       const attrType = typeof obj[key];
       if (attrType === 'object') {

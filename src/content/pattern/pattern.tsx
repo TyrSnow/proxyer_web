@@ -12,9 +12,10 @@ import { convertToFormFields } from '../../util/convertToFormFields';
 interface PatternItemProps {
   _id: string
   match: string
-  methods?: number[]
+  allow_methods?: number[]
   throttle: THROTTLE_TYPE
   server?: string
+  servername?: string
   delay?: number
   speed?: number
   enable?: boolean
@@ -53,10 +54,11 @@ class PatternItem extends React.Component<PatternItemProps> {
           </div>
         );
         case THROTTLE_TYPE.DELAY:
+        case THROTTLE_TYPE.DELAY_BLOCK:
           return (
             <div className="throttle f-df f-df_l">
               <Icon type="clock-circle-o" />
-              {delay} ms
+              {delay} s
             </div>
           );
         case THROTTLE_TYPE.SPEED:
@@ -75,7 +77,7 @@ class PatternItem extends React.Component<PatternItemProps> {
     return (
       <div className="proxy">
         <Icon type="swap" />
-        {this.props.server}
+        {this.props.servername}
       </div>
     );
   }
@@ -92,7 +94,7 @@ class PatternItem extends React.Component<PatternItemProps> {
 
   render() {
     const {
-      methods,
+      allow_methods,
       match,
       enable = false,
       server,
@@ -104,7 +106,7 @@ class PatternItem extends React.Component<PatternItemProps> {
         <div className="match">
           <span className="url">{match}</span>
           {
-            methods ? this.renderMethods(methods) : null
+            allow_methods ? this.renderMethods(allow_methods) : null
           }
         </div>
         <div className="handle">

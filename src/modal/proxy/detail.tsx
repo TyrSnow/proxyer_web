@@ -4,12 +4,14 @@ import {
   Input,
 } from 'antd';
 import { FormComponentProps } from 'antd/lib/form';
+import { PROXY_STATUS } from '../../constant/proxy';
 
 const FormItem = Form.Item;
 
 interface ProxyDetailProps extends FormComponentProps {
   name?: string
   port?: string
+  status?: PROXY_STATUS,
 }
 
 const formItemLayout = {
@@ -46,7 +48,7 @@ class ProxyDetail extends React.Component<ProxyDetailProps> {
             initialValue: props.port,
             rules: [{ required: true }]
           })(
-            <Input type="number" />
+            <Input type="number" disabled={props.status === PROXY_STATUS.RUNNING} />
           )
         }
         </FormItem>

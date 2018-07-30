@@ -36,6 +36,8 @@ function update_active_detail(state: Immutable.Map<string, any>, activeId: strin
     return item.get('_id') === activeId;
   });
   console.debug('update_active_detail findIndex item: ', activeIndex);
+  const status = state.getIn(['detail', 'status']);
+  detail.status = status;
   const oriDetail = state.getIn(['list', activeIndex]);
   const newDetail = oriDetail.merge(detail);
   return state

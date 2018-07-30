@@ -31,8 +31,9 @@ axios.interceptors.response.use(
           history.push('500');
           break;
         default:
+          return Promise.reject(error.response.data);
       }
     }
-    return Promise.reject(error.response.data);   // 返回接口返回的错误信息
+    return Promise.reject(error);   // 返回接口返回的错误信息
   }
 );

@@ -7,11 +7,13 @@ import actions from '../../store/actions';
 import DetailForm from './detail';
 import { HIDE_PROXY_DETAIL, SHOW_PROXY_DETAIL, SHOW_CREATE_PROXY } from '../../constant/command';
 import { autobind } from '../../helper/autobind';
+import { PROXY_STATUS } from '../../constant/proxy';
 
 interface ProxyModaPayload {
   title?: string
   _id?: string
   name?: string
+  status?: PROXY_STATUS
   port?: string
 }
 

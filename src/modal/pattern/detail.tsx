@@ -31,7 +31,7 @@ const formItemLayout = {
 interface DetailFormProps extends FormComponentProps {
   hosts: Immutable.List<any>
   match?: string
-  methods?: string[]
+  allow_methods?: string[]
   throttle?: string
   delay?: string
   speed?: string
@@ -40,6 +40,13 @@ interface DetailFormProps extends FormComponentProps {
 
 @autobind
 class DetailForm extends React.Component<DetailFormProps> {
+  static defaultProps = {
+    throttle: THROTTLE_TYPE.NONE.toString(),
+    speed: '30',
+    delay: '10',
+    server: '',
+  };
+
   renderThrottleOptions() {
     return Object.keys(THROTTLE_TYPE_LABEL).map(key => (
       <Option
@@ -96,9 +103,9 @@ class DetailForm extends React.Component<DetailFormProps> {
           )}
         </FormItem>
         <FormItem {...formItemLayout} label="Method限定">
-          <SwitchFormItem initialValue={props.methods ? props.methods.length > 0 : false}>
-          {getFieldDecorator('methods', {
-            initialValue: props.methods,
+          <SwitchFormItem initialValue={props.allow_methods ? props.allow_methods.length > 0 : false}>
+          {getFieldDecorator('allow_methods', {
+            initialValue: props.allow_methods,
           })(
             <Select mode="tags" placeholder="请选择需要限定的Method">
               {this.renderMethodOptions()}
@@ -118,17 +125,17 @@ class DetailForm extends React.Component<DetailFormProps> {
             {
               throttle === THROTTLE_TYPE.SPEED ? (
                 getFieldDecorator('speed', {
-                  initialValue: props.speed || '100',
+                  initialValue: props.speed,
                   rules: [{ required: true, message: '请指定限速大小' }],
                 })(
-                  <Input type="number" min="0" step="10" style={{ width: '60%' }} addonAfter="kb/s" />
+                  <Input type="number" min="1" step="10" style={{ width: '60%' }} addonAfter="kb/s" />
                 )
               ) : null
             }
             {
-              throttle === THROTTLE_TYPE.DELAY ? (
+              (throttle === THROTTLE_TYPE.DELAY) || (throttle === THROTTLE_TYPE.DELAY_BLOCK) ? (
                 getFieldDecorator('delay', {
-                  initialValue: props.delay || '30',
+                  initialValue: props.delay,
                   rules: [{ required: true, message: '请指定延时时间' }],
                 })(
                   <Input type="number" min="0" step="10" style={{ width: '60%' }} addonAfter="s" />
@@ -139,7 +146,7 @@ class DetailForm extends React.Component<DetailFormProps> {
         </FormItem>
         <FormItem {...formItemLayout} label="转发到">
           {getFieldDecorator('server', {
-            initialValue: props.server || '',
+            initialValue: props.server,
           })(
             <Select>
               <Option value="">默认</Option>

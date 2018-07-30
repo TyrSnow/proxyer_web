@@ -1,6 +1,7 @@
 import { Action } from 'redux';
 import { ThunkAction } from 'redux-thunk';
 import axios from 'axios';
+import * as Immutable from 'immutable';
 import { AppStore } from '../index.d';
 import * as TYPES from './actionType';
 import { ProxyInfo, ProxyDetail } from "../../definition/proxy";
@@ -61,6 +62,7 @@ export function setProxyDetail(proxyId: string, detail: ProxyDetail): any {
     detail,
   };
 }
+
 export function updateProxyStatus(proxyId: string, status: PROXY_STATUS): any {
   return {
     type: TYPES.UPDATE_PROXY_STATUS,
@@ -80,6 +82,8 @@ export function syncProxyStatus(proxyId?: string): ThunkAction<Promise<Action>, 
     dispatch(updateProxyStatus(activeId as string, PROXY_STATUS.SYNCING));
     return axios.get(`/api/server/${activeId}`).then(
       resp => dispatch(updateProxyStatus(activeId as string, resp.data.data)),
+    ).catch(
+      err => dispatch(updateProxyStatus(activeId as string, PROXY_STATUS.SYNCING_ERROR)),
     );
   };
 }
@@ -98,6 +102,7 @@ export function restartProxy(proxyId?: string): ThunkAction<Promise<Action>, App
     );
   };
 }
+
 export function startProxy(proxyId?: string): ThunkAction<Promise<Action>, AppStore, any, any> {
   return (dispatch, getState) => {
     let activeId = proxyId;
@@ -149,18 +154,28 @@ export function createProxy(
   port: string,
 ): ThunkAction<Promise<any>, AppStore, any, any> {
   return (dispatch, getState) => {
-    const store = getState();
-    const list = store.getIn(['proxy', 'list']);
-
     return axios.post(`/api/proxy`, {
       name,
       port,
     }).then(
       (resp) => {
-        list.unshift(resp.data.data);
+        const store = getState();
+        let list = store.getIn(['proxy', 'list']);
+        list = list.unshift(Immutable.fromJS(resp.data.data));
         dispatch(updateList(list));
         return dispatch(setActive(resp.data.data._id));
       }
     );
   }
+}
+
+export function deleteProxy(
+  proxyId?: string,
+): ThunkAction<Promise<any>, AppStore, any, any> {
+  return (dispatch, getState) => {
+    return axios.delete(`/api/proxy/${proxyId}`).then(resp => {
+      // 直接重新加载列表
+      return dispatch(loadList());
+    });
+  };
 }

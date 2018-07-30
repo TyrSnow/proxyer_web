@@ -61,6 +61,12 @@
 .f-pointer {
   cursor: pointer; }
 
+@font-face {
+  font-family: 'anticon';
+  src: url("/fonts/font_148784_v4ggb6wrjmkotj4i.eot");
+  /* IE9*/
+  src: url("/fonts/font_148784_v4ggb6wrjmkotj4i.woff") format("woff"), url("/fonts/font_148784_v4ggb6wrjmkotj4i.ttf") format("truetype"), url("/fonts/font_148784_v4ggb6wrjmkotj4i.svg#iconfont") format("svg"); }
+
 .ant-input-group > .ant-input-group-wrapper:last-child .ant-input-group > .ant-input:first-child {
   border-bottom-left-radius: 0;
   border-top-left-radius: 0; }

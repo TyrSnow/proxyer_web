@@ -13,6 +13,7 @@ import { autobind } from '../../helper/autobind';
 
 interface PatternContentProps {
   patterns: Immutable.List<any>
+  hosts: Immutable.List<any>
   trigger(name: string, payload?: any): any
   editPattern(pattern: any, patternId: string, proxyId?: string): any
 }
@@ -42,6 +43,7 @@ class PatternContent extends React.Component<PatternContentProps> {
         />
         <List
           patterns={this.props.patterns}
+          hosts={this.props.hosts}
           createPattern={this.createPattern}
           editPattern={this.editPattern}
           togglePatternEnable={this.togglePatternEnable}
@@ -54,6 +56,7 @@ class PatternContent extends React.Component<PatternContentProps> {
 export default connect(
   (state: Immutable.Map<string, any>) => ({
     patterns: state.getIn(['proxy', 'detail', 'patterns']),
+    hosts: state.getIn(['proxy', 'detail', 'hosts']),
   }),
   {
     trigger: actions.command.trigger,

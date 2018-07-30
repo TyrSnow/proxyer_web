@@ -64,12 +64,13 @@ class QuickControlBar extends React.Component<QuickControlBarProps> {
   }
 
   editProxy() {
-    const { activeId, name, port } = this.props;
+    const { activeId, name, port, status } = this.props;
     this.props.trigger(SHOW_PROXY_DETAIL, {
       title: '编辑',
       _id: activeId,
       name,
       port,
+      status,
     });
   }
 

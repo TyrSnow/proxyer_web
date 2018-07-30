@@ -5,4 +5,5 @@ export enum PROXY_STATUS {
   RESTARTING,
   UPDATING,
   SYNCING,
+  SYNCING_ERROR,
 }

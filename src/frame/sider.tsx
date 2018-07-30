@@ -35,7 +35,7 @@ export default class Sider extends React.Component {
         >
           <Icon type="desktop" />
         </NavLink>
-        {/* <NavLink
+        <NavLink
           className="link"
           to="/setting"
           exact={true}
@@ -43,7 +43,7 @@ export default class Sider extends React.Component {
           activeClassName="active"
         >
           <Icon type="setting" />
-        </NavLink> */}
+        </NavLink>
       </div>
     );
   }
