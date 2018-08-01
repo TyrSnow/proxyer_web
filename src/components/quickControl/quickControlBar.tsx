@@ -1,13 +1,11 @@
 import * as React from 'react';
-import {
-  Icon,
-} from 'antd';
 import * as Immutable from 'immutable';
 import { connect } from 'react-redux';
 import actions from '../../store/actions';
 import { PROXY_STATUS } from '../../constant/proxy';
 import { autobind } from '../../helper/autobind';
-import { SHOW_PROXY_DETAIL } from '../../constant/command';
+import { SHOW_PROXY_DETAIL, SHOW_PROXY_COPY, SHOW_CREATE_PROXY } from '../../constant/command';
+import IconButton from '../iconButton';
 
 interface QuickControlBarProps {
   activeId: string
@@ -74,20 +72,34 @@ class QuickControlBar extends React.Component<QuickControlBarProps> {
     });
   }
 
+  createProxy() {
+    this.props.trigger(SHOW_CREATE_PROXY, {});
+  }
+
+  copyProxy() {
+    const { activeId, name, port } = this.props;
+    this.props.trigger(SHOW_PROXY_COPY, {
+      title: `创建"${name}"的副本`,
+      _id: activeId,
+      name: `${name}-副本`,
+      port: port + 1,
+    });
+  }
+
   renderStatus() {
     switch (this.props.status) {
       case PROXY_STATUS.STOP:
       case PROXY_STATUS.ERROR:
-        return <Icon className="btnIcon" type="play-circle" onClick={this.startProxy} />;
+        return <IconButton tip="启动代理服务器" type="play-circle" onClick={this.startProxy} />;
       
       case PROXY_STATUS.RUNNING:
         return [
-          <Icon key="stop" className="btnIcon" type="pause-circle-o" onClick={this.stopProxy} />,
-          <Icon key="restart" className="btnIcon" type="retweet" onClick={this.restartProxy} />
+          <IconButton tip="终止代理服务器" key="stop" type="pause-circle-o" onClick={this.stopProxy} />,
+          <IconButton tip="重启代理服务器" key="restart" type="retweet" onClick={this.restartProxy} />
         ];
       
       case PROXY_STATUS.SYNCING:
-        return <Icon className="btnIcon" type="loading" />;
+        return <IconButton type="loading" />;
       
       default:
         return null;
@@ -98,7 +110,9 @@ class QuickControlBar extends React.Component<QuickControlBarProps> {
     return (
       <div className="m-quickControl">
         {this.renderStatus()}
-        <Icon onClick={this.editProxy} className="btnIcon" type="setting" />
+        <IconButton tip="设置当前代理" onClick={this.editProxy} type="setting" />
+        <IconButton tip="以当前代理为模板创建新代理" onClick={this.copyProxy} type="fork" />
+        <IconButton tip="创建新代理" onClick={this.createProxy} type="plus-circle-o" />
       </div>
     );
   }

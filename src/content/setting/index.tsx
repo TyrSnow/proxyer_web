@@ -4,6 +4,7 @@ import {
   Modal,
   Icon,
   Tooltip,
+  message,
 } from 'antd';
 import * as Immutable from 'immutable';
 import { connect } from 'react-redux';
@@ -35,7 +36,9 @@ class SettingContent extends React.Component<SettingContentProps> {
       title: '确定删除该项目？',
       content: '删除操作是不可逆的',
       onOk: () => {
-        this.props.deleteProxy(this.props.activeId);
+        this.props.deleteProxy(this.props.activeId).catch((err: any) => {
+          message.error(err.message);
+        });
       },
     });
   }

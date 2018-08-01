@@ -9,6 +9,7 @@ const initialState = Immutable.Map({
   initial: false,
   token: undefined,
   name: '',
+  config: undefined,
   head: '',
 });
 

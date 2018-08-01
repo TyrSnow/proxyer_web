@@ -6,4 +6,52 @@
 }
 .m-proxySelect {
   margin: 0 10px;
+  cursor: pointer;
+  .u-list {
+    &-panel {
+      width: 300px;
+      height: 100%;
+      padding: 5px 0;
+      background: #ddd;
+      position: fixed;
+      right: -500px;
+      bottom: 0;
+      z-index: 100;
+      transition: all 100ms;
+      &.drag {
+        user-select: none;
+      }
+    }
+    &-mask {
+      width: 100%;
+      height: 100%;
+      background: rgba(255, 255, 255, 0.1);
+      position: fixed;
+      left: 0;
+      top: 0;
+      z-index: 99;
+      display: none;
+      cursor: auto;
+    }
+  }
+  .u-pattern {
+    padding: 0 20px;
+    margin: 1px 6px;
+    background: #FFF;
+    transition: all 300ms;
+    border: 1px solid #EEE;
+    &:hover {
+      background: #EEE;
+    }
+  }
+  &.active {
+    .u-list {
+      &-panel {
+        right: 0;
+      }
+      &-mask {
+        display: block;
+      }
+    }
+  }
 }

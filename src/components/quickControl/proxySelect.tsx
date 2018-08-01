@@ -1,67 +1,109 @@
 import * as React from 'react';
-import {
-  Select,
-} from 'antd';
 import * as Immutable from 'immutable';
 import { connect } from 'react-redux';
 import actions from '../../store/actions';
 import { ProxyInfo } from '../../definition/proxy';
 import { autobind } from '../../helper/autobind';
-import { SHOW_CREATE_PROXY } from '../../constant/command';
-
-const { Option } = Select;
+import ProxySelectList from './proxySelect.list';
 
 interface ProxySelectProps {
   list: ProxyInfo[]
   list_loading: boolean
   active_id: string
+  config: any
   setActive(activeId: string): any
   trigger(name: string, payload?: any): any
 }
 
+interface ProxySelectState {
+  listVisible: boolean
+}
+
 @autobind
-class ProxySelect extends React.Component<ProxySelectProps> {
-  shouldComponentUpdate(nextProps: ProxySelectProps) {
+class ProxySelect extends React.Component<ProxySelectProps, ProxySelectState> {
+  public state = {
+    listVisible: false,
+  };
+
+  shouldComponentUpdate(nextProps: ProxySelectProps, nextState: ProxySelectState) {
     if (nextProps.list !== this.props.list) {
       return true;
     }
     if (nextProps.active_id !== this.props.active_id) {
       return true;
-    }if (nextProps.list_loading !== this.props.list_loading) {
+    }
+    if (nextProps.list_loading !== this.props.list_loading) {
+      return true;
+    }
+    if (nextState.listVisible !== this.state.listVisible) {
       return true;
     }
     return false;
   }
+
+  toggleListVisible() {
+    this.setState((prevState) => ({
+      listVisible: !prevState.listVisible,
+    }));
+  }
+
   handleProxyChange(e: any) {
-    if (e === 'create') {
-      console.debug(e);
-      this.props.trigger(SHOW_CREATE_PROXY);
-      return;
-    }
+    // if (e === 'create') {
+    //   console.debug(e);
+    //   this.props.trigger(SHOW_CREATE_PROXY);
+    //   return;
+    // }
+    this.setState({
+      listVisible: false,
+    });
     this.props.setActive(e);
   }
 
+  getActiveProxy() {
+    const { active_id } = this.props;
+    const activeProxys = this.props.list.filter(proxy => active_id === proxy._id);
+    return activeProxys[0] || {};
+  }
+
+  renderProxy(proxy: ProxyInfo) {
+    return (
+      // tslint:disable-next-line:jsx-no-lambda
+      <div onClick={() => this.handleProxyChange(proxy._id)} className="u-pattern" key={proxy._id}>{proxy.name}: {proxy.port}</div>
+    );
+  }
+
   renderProxyList() {
-    const { list = [] } = this.props;
-    return list.map((proxy) => {
-      return (
-        <Option key={proxy._id} value={proxy._id}>{proxy.name}: {proxy.port}</Option>
-      );
-    });
+    const { list = [], active_id, config = {} } = this.props;
+    const { proxySort = [] } = config;
+
+    return (
+      <div className="u-list">
+        <div onClick={this.toggleListVisible} className="u-list-mask" />
+        <ProxySelectList
+          list={list}
+          sort={proxySort}
+          active_id={active_id}
+          onProxyClick={this.handleProxyChange}
+        />
+      </div>
+    );
+  }
+
+  renderActive() {
+    if (this.props.list_loading) {
+      return null;
+    }
+    const { name, port } = this.getActiveProxy();
+    return (
+      <span onClick={this.toggleListVisible} className="u-active">{name}: {port}</span>
+    );
   }
 
   render() {
-    console.debug('ProxySelect render: ', this.props);
     return (
-      <div className="m-proxySelect">
-        <Select
-          onChange={this.handleProxyChange}
-          value={this.props.active_id}
-          style={{ width: 200, marginRight: 15 }}
-        >
-          <Option key="create" value="create">-- 新建 --</Option>
-          {this.renderProxyList()}
-        </Select>
+      <div className={`m-proxySelect${this.state.listVisible ? ' active' : ''}`}>
+        {this.renderActive()}
+        {this.renderProxyList()}
       </div>
     );
   }
@@ -73,6 +115,7 @@ export default connect(
     list_loading: state.getIn(['proxy', 'list_loading']),
     active_id: state.getIn(['proxy', 'active_id']),
     auth_state: state.getIn(['auth', 'state']),
+    config: state.getIn(['auth', 'config']),
   }),
   {
     setActive: actions.proxy.setActive,

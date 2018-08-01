@@ -22,12 +22,19 @@ export function loadList(): ThunkAction<Promise<Action>, AppStore, any, any> {
     return axios.get('/api/proxy?all').then(
       (resp) => {
         const state = getState();
-        const activeId = state.getIn(['proxy', 'active_id']);
+        let activeId = state.getIn(['proxy', 'active_id']);
+        // 判断是不是有用户定义顺序
+        const config = state.getIn(['auth', 'config']);
+        if (!activeId && config && config.proxySort && config.proxySort[0]) {
+          activeId = config.proxySort[0];
+        }
         const list = resp.data.data;
         if (list.length > 0) {
           const filtActive = list.filter((item: ProxyInfo) => item._id === activeId);
           if (filtActive.length === 0) {
             dispatch(setActive(list[0]._id));
+          } else {
+            dispatch(setActive(activeId));
           }
         }
         return dispatch(updateList(resp.data.data))
@@ -152,11 +159,13 @@ export function updateProxyDetail(
 export function createProxy(
   name: string,
   port: string,
+  proxyId?: string,
 ): ThunkAction<Promise<any>, AppStore, any, any> {
   return (dispatch, getState) => {
     return axios.post(`/api/proxy`, {
       name,
       port,
+      proxyId,
     }).then(
       (resp) => {
         const store = getState();

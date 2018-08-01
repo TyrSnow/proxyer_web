@@ -4,9 +4,11 @@ import {
 } from 'antd';
 import { ModalProps } from 'antd/lib/modal';
 import { autobind } from '../helper/autobind';
+import { dirt } from '../util';
 
 export interface FormWrapModalProps extends ModalProps {
   data?: any
+  dirt?: boolean
   onSubmit?(fields: any): Promise<any>
 }
 
@@ -17,10 +19,14 @@ class FormWrapModal extends React.Component<FormWrapModalProps> {
   };
 
   shouldComponentUpdate(nextProps: FormWrapModalProps) {
+    console.debug('check update: ', nextProps);
     if (nextProps.visible) { // 可见的时候
       return true;
     }
     if (this.props.visible && !nextProps.visible) { // 可见性翻转
+      return true;
+    }
+    if (this.props.dirt !== nextProps.dirt) {
       return true;
     }
     return false;
@@ -62,6 +68,9 @@ class FormWrapModal extends React.Component<FormWrapModalProps> {
         Object.assign(fields, sub);
       });
 
+      if (this.props.dirt) {
+        dirt(fields, this.props.data);
+      }
       if (this.props.onSubmit) {
         return this.props.onSubmit(fields);
       }
