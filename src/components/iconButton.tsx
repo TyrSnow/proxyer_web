@@ -17,7 +17,11 @@ class IconButton extends React.PureComponent<IconButtonProps> {
 
     if (tip) {
       return (
-        <Tooltip title={tip}>
+        <Tooltip
+          title={tip}
+          mouseEnterDelay={0.5}
+          arrowPointAtCenter={true}
+        >
           <Icon className="btnIcon" {...iconProps} />
         </Tooltip>
       );

@@ -20,6 +20,14 @@
       .url {
         padding-right: 10px;
       }
+      .methods {
+        .ant-tag {
+          margin: 1px -10px 0 0;
+          &:hover {
+            margin: 1px 5px 0 0;
+          }
+        }
+      }
     }
     .handle {
       width: 300px;

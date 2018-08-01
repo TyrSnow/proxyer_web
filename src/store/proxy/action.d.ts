@@ -3,7 +3,7 @@ import { ProxyInfo, ProxyDetail, Host } from '../../definition/proxy';
 
 export interface ProxyAction extends Action {
   list: ProxyInfo[]
-  detail: ProxyDetail,
+  detail: ProxyDetail
   activeId: string
   proxyId: string
   status: number

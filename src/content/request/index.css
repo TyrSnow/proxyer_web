@@ -1,28 +1,35 @@
-.m-requestlist .u-request {
-  padding: 10px 15px;
-  border-bottom: 1px solid #F0F0F0;
-  position: relative;
-  flex-wrap: nowrap; }
-  .m-requestlist .u-request:hover:before {
-    content: '';
-    display: block;
-    width: 6px;
-    height: 6px;
-    border-radius: 100%;
-    background: #F00;
-    position: absolute;
-    top: 50%;
-    left: 5px;
-    margin-top: -3px; }
-  .m-requestlist .u-request:last-child {
-    border-bottom: none; }
-  .m-requestlist .u-request .tags {
-    width: 150px; }
-  .m-requestlist .u-request .path {
-    width: 100%; }
-    .m-requestlist .u-request .path .anticon {
-      margin-left: 5px; }
-  .m-requestlist .u-request .cost {
-    width: 50px; }
-  .m-requestlist .u-request .control {
-    width: 200px; }
+.m-requestlist {
+  min-height: 100px; }
+  .m-requestlist .u-request {
+    padding: 10px 15px;
+    border-bottom: 1px solid #F0F0F0;
+    position: relative;
+    flex-wrap: nowrap; }
+    .m-requestlist .u-request:hover:before {
+      content: '';
+      display: block;
+      width: 6px;
+      height: 6px;
+      border-radius: 100%;
+      background: #F00;
+      position: absolute;
+      top: 50%;
+      left: 5px;
+      margin-top: -3px; }
+    .m-requestlist .u-request:last-child {
+      border-bottom: none; }
+    .m-requestlist .u-request .tags {
+      width: 150px; }
+    .m-requestlist .u-request .path {
+      width: 100%; }
+      .m-requestlist .u-request .path .anticon {
+        margin-left: 5px; }
+    .m-requestlist .u-request .cost {
+      width: 50px; }
+    .m-requestlist .u-request .control {
+      width: 150px;
+      text-align: right; }
+
+.m-filter.ui-panel .u-fetchStatus {
+  font-size: 16px;
+  margin-right: 4px; }

@@ -89,7 +89,13 @@ class PatternItem extends React.Component<PatternItemProps> {
   }
 
   renderMethods(methods: METHOD_TYPE[]) {
-    return methods.map(this.renderMethod);
+    return (
+      <div className="methods">
+      {
+        methods.map(this.renderMethod)
+      }
+      </div>
+    );
   }
 
   render() {
@@ -104,10 +110,10 @@ class PatternItem extends React.Component<PatternItemProps> {
       <div className={this.getClassName()}>
         <Switch checked={enable} onChange={this.toggleEnable} />
         <div className="match">
-          <span className="url">{match}</span>
           {
             allow_methods ? this.renderMethods(allow_methods) : null
           }
+          <span className="url">{match}</span>
         </div>
         <div className="handle">
           {this.renderThrottle()}

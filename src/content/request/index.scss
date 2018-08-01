@@ -1,4 +1,5 @@
 .m-requestlist {
+  min-height: 100px;
   .u-request {
     padding: 10px 15px;
     border-bottom: 1px solid #F0F0F0;
@@ -34,7 +35,15 @@
       width: 50px;
     }
     .control {
-      width: 200px;
+      width: 150px;
+      text-align: right;
     }
+  }
+}
+
+.m-filter.ui-panel {
+  .u-fetchStatus {
+    font-size: 16px;
+    margin-right: 4px;
   }
 }

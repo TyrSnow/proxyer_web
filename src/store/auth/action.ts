@@ -84,3 +84,13 @@ export function modifyPassword(
     }).then((resp) => dispatch(updateUser(resp.data.data)));
   };
 }
+
+export function updateSortConfig(
+  sortList: string[],
+): ThunkAction<Promise<Action>, AppStore, any, any> {
+  return (dispatch) => {
+    return axios.put(`/api/session/config/sortList`, {
+      sortList,
+    }).then(resp => dispatch(updateUser(resp.data.data)));
+  }
+}

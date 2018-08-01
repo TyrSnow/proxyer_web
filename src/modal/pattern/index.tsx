@@ -51,10 +51,10 @@ class PatternModal extends React.Component<PatternModalProps, ProxyModalState> {
     });
   }
 
-  showCreateModal() {
+  showCreateModal(payload: any = {}) {
     this.setState({
       visible: true,
-      payload: {},
+      payload,
       create: true,
     });
   }

@@ -28,8 +28,6 @@ axios.interceptors.response.use(
           history.push('/login');
           break;
         case 500:
-          history.push('500');
-          break;
         default:
           return Promise.reject(error.response.data);
       }

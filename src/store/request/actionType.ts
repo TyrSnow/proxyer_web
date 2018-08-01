@@ -1,0 +1,1 @@
+export const UPDATE_REQUEST_LIST = Symbol('UPDATE_REQUEST_LIST');

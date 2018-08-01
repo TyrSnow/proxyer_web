@@ -6,9 +6,10 @@ import thunk from 'redux-thunk';
 import auth from './auth/reducer';
 import proxy from './proxy/reducer';
 import command from './command/reducer';
+import request from './request/reducer';
 
 const store = createStore(
-  combineReducers({ auth, proxy, command }),
+  combineReducers({ auth, proxy, command, request }),
   composeWithDevTools(applyMiddleware(thunk)),
 );
 

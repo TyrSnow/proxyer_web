@@ -5,6 +5,7 @@ import actions from '../../store/actions';
 import { ProxyInfo } from '../../definition/proxy';
 import { autobind } from '../../helper/autobind';
 import ProxySelectList from './proxySelect.list';
+import { SHOW_PROXY_COPY } from '../../constant/command';
 
 interface ProxySelectProps {
   list: ProxyInfo[]
@@ -13,6 +14,7 @@ interface ProxySelectProps {
   config: any
   setActive(activeId: string): any
   trigger(name: string, payload?: any): any
+  updateSortConfig(sortList: string[]): any
 }
 
 interface ProxySelectState {
@@ -59,12 +61,25 @@ class ProxySelect extends React.Component<ProxySelectProps, ProxySelectState> {
     this.props.setActive(e);
   }
 
+  copyProxy(proxy: ProxyInfo) {
+    const { _id, name, port } = proxy;
+    this.setState({
+      listVisible: false,
+    });
+    this.props.trigger(SHOW_PROXY_COPY, {
+      title: `创建"${name}"的副本`,
+      _id,
+      name: `${name}-副本`,
+      port: port + 1,
+    })
+  }
+
   getActiveProxy() {
     const { active_id } = this.props;
     const activeProxys = this.props.list.filter(proxy => active_id === proxy._id);
     return activeProxys[0] || {};
   }
-
+  
   renderProxy(proxy: ProxyInfo) {
     return (
       // tslint:disable-next-line:jsx-no-lambda
@@ -84,6 +99,8 @@ class ProxySelect extends React.Component<ProxySelectProps, ProxySelectState> {
           sort={proxySort}
           active_id={active_id}
           onProxyClick={this.handleProxyChange}
+          onSortChange={this.props.updateSortConfig}
+          copyProxy={this.copyProxy}
         />
       </div>
     );
@@ -120,5 +137,6 @@ export default connect(
   {
     setActive: actions.proxy.setActive,
     trigger: actions.command.trigger,
+    updateSortConfig: actions.auth.updateSortConfig,
   },
 )(ProxySelect);

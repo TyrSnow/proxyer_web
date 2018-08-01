@@ -15,6 +15,10 @@
     width: 100%; }
     .m-pattern .u-pattern .match .url {
       padding-right: 10px; }
+    .m-pattern .u-pattern .match .methods .ant-tag {
+      margin: 1px -10px 0 0; }
+      .m-pattern .u-pattern .match .methods .ant-tag:hover {
+        margin: 1px 5px 0 0; }
   .m-pattern .u-pattern .handle {
     width: 300px; }
     .m-pattern .u-pattern .handle .anticon {
