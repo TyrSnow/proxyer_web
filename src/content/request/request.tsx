@@ -1,14 +1,14 @@
 import * as React from 'react';
 import {
-  Tag,
   Icon,
 } from 'antd';
-import { METHOD_COLOR, METHOD_LABEL } from '../../constant/method';
 import IconButton from '../../components/iconButton';
 import { autobind } from '../../helper/autobind';
 import { period } from '../../util/format';
+import { MethodTag, StatusTag } from '../../components/tags';
 
 interface RequestItemProps {
+  _id: string
   method: number
   url: string
   query?: string
@@ -17,41 +17,24 @@ interface RequestItemProps {
   pattern: string
   cost: number
   createRequestPattern(url: string, method: number): any
+  showRequestDetail(detail: any): any
 }
 
 @autobind
 class RequestItem extends React.Component<RequestItemProps> {
+  showDetail() {
+    const { _id, method, status, finished, url } = this.props;
+    this.props.showRequestDetail({
+      _id,
+      method,
+      status,
+      finished,
+      url,
+    });
+  }
+
   createRequestPattern() {
     this.props.createRequestPattern(this.props.url, this.props.method);
-  }
-
-  getResponseColor(status: number) {
-    if (status === 0) {
-      return 'orange';
-    } else if (status === 200) {
-      return 'green';
-    } else if (status === 301) {
-      return 'cyan';
-    }
-    return 'red';
-  }
-
-  renderResponse(status: number, finished: boolean) {
-    return (
-      <Tag color={this.getResponseColor(status)}>
-      {
-        finished ? status : (
-          <Icon type="sync" spin={true} />
-        )
-      }
-      </Tag>
-    );
-  }
-
-  renderMethod(method: number) {
-    return (
-      <Tag color={METHOD_COLOR[method]}>{METHOD_LABEL[method]}</Tag>
-    )
   }
 
   render() {
@@ -59,10 +42,10 @@ class RequestItem extends React.Component<RequestItemProps> {
       method, url, status, finished, pattern, cost, query,
     } = this.props;
     return (
-      <div className="u-request f-df">
+      <div className="u-request f-df" onClick={this.showDetail}>
         <div className="tags">
-          {this.renderMethod(method)}
-          {this.renderResponse(status, finished)}
+          <MethodTag method={method} />
+          <StatusTag status={status} finished={finished} />
         </div>
         <div className="path">
           <span>{url}</span>

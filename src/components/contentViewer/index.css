@@ -1,0 +1,32 @@
+.m-jsonViewer .objectInner {
+  padding-left: 2em; }
+
+.m-jsonViewer .arrayInner {
+  padding-left: 2em; }
+
+.m-jsonViewer .attrs > .attr {
+  text-indent: 2em; }
+
+.m-jsonViewer .attrs .attr:after,
+.m-jsonViewer .attrs > .object > .end:after,
+.m-jsonViewer .attrs > .attr > .end:after {
+  content: ','; }
+
+.m-jsonViewer .attrs > .attr:last-child:after,
+.m-jsonViewer .attrs > .object:last-child > .end:after,
+.m-jsonViewer .attrs > .attr.array:after,
+.m-jsonViewer .attrs > .attr.object:after {
+  content: ''; }
+
+.m-jsonViewer .attr.string .value:before {
+  content: '"';
+  padding-left: 0.5em; }
+
+.m-jsonViewer .attr.string .value:after {
+  content: '"'; }
+
+.m-jsonViewer p.end {
+  margin-bottom: 0; }
+
+.m-jsonViewer .start {
+  padding-left: 2em; }

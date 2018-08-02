@@ -1,0 +1,12 @@
+.m-objectTable .row {
+  display: flex;
+  padding: 5px 0;
+  border-bottom: 1px solid #EEE; }
+  .m-objectTable .row:last-child {
+    border-bottom: none; }
+  .m-objectTable .row .column {
+    word-break: break-word;
+    padding: 0 8px; }
+  .m-objectTable .row .key {
+    width: 200px;
+    flex-shrink: 0; }

@@ -1,2 +1,1 @@
-export const REGIST_COMMAND = Symbol('REGIST_COMMAND');
-export const RELEASE_COMMAND = Symbol('RELEASE_COMMAND');
+export const UPDATE_CONFIG = Symbol('UPDATE_CONFIG');

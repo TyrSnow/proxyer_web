@@ -3,12 +3,10 @@
   flex-wrap: nowrap;
   background: #FFF;
   margin-bottom: 3px; }
-  .m-pattern .u-pattern.disable {
-    text-decoration: line-through; }
-    .m-pattern .u-pattern.disable .ant-tag {
-      color: #666;
-      background: #EEE;
-      border-color: #EEE; }
+  .m-pattern .u-pattern.disable .ant-tag {
+    color: #666;
+    background: #EEE;
+    border-color: #EEE; }
   .m-pattern .u-pattern .ant-switch {
     margin-right: 20px; }
   .m-pattern .u-pattern .match {

@@ -7,6 +7,7 @@ interface RequestListProps {
   list: any[]
   patterns: Pattern[]
   createRequestPattern(url: string, method: number): any
+  showRequestDetail(detail: any): any
 }
 
 class RequestList extends React.Component<RequestListProps> {
@@ -38,15 +39,12 @@ class RequestList extends React.Component<RequestListProps> {
     return (
       <div className="m-requestlist ui-panel">
         {
-          this.props.list.filter(RequestList.filterFactor([{
-            key: 'method',
-            value: 0,
-            match: 'equal',
-          }])).map(request => (
+          this.props.list.filter(RequestList.filterFactor([])).map(request => (
             <RequestItem
               key={request._id}
               {...request}
               createRequestPattern={this.props.createRequestPattern}
+              showRequestDetail={this.props.showRequestDetail}
             />
           ))
         }

@@ -9,7 +9,7 @@ import actions from '../../store/actions';
 import { autobind } from '../../helper/autobind';
 import { Pattern } from '../../definition/proxy';
 import { METHOD } from '../../constant/http';
-import { SHOW_CREATE_PATTERN } from '../../constant/command';
+import { SHOW_CREATE_PATTERN, SHOW_REQUEST_DETAIL } from '../../constant/command';
 import { PROXY_STATUS } from '../../constant/proxy';
 
 const LOOP_TIME = 1000;
@@ -107,6 +107,10 @@ class RequestContent extends React.Component<RequestContentProps, RequestContent
     });
   }
 
+  showRequestDetail(detail: any) {
+    this.props.trigger(SHOW_REQUEST_DETAIL, detail);
+  }
+
   createRequestPattern(url: string, method: METHOD) {
     this.props.trigger(SHOW_CREATE_PATTERN, {
       match: url.split('?')[0],
@@ -124,6 +128,7 @@ class RequestContent extends React.Component<RequestContentProps, RequestContent
           list={this.state.requests.list}
           patterns={this.props.patterns}
           createRequestPattern={this.createRequestPattern}
+          showRequestDetail={this.showRequestDetail}
         />
       </div>
     )

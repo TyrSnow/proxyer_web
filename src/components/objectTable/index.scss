@@ -1,0 +1,18 @@
+.m-objectTable {
+  .row {
+    display: flex;
+    padding: 5px 0;
+    border-bottom: 1px solid #EEE;
+    &:last-child {
+      border-bottom: none;
+    }
+    .column {
+      word-break: break-word;
+      padding: 0 8px;
+    }
+    .key {
+      width: 200px;
+      flex-shrink: 0;
+    }
+  }
+}

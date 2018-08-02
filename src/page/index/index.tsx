@@ -17,6 +17,7 @@ import { ProxyInfo } from '../../definition/proxy';
 
 import Proxy from '../../modal/proxy/index';
 import Pattern from '../../modal/pattern/index';
+import RequestModal from '../../modal/request/index';
 
 interface IndexPageProps {
   state: AUTH_STATE
@@ -74,6 +75,7 @@ class IndexPage extends React.Component<IndexPageProps> {
         </Switch>
         <Proxy />
         <Pattern />
+        <RequestModal />
       </MainFrame>
     );
   }

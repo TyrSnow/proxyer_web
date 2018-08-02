@@ -1,0 +1,39 @@
+.m-jsonViewer {
+  .objectInner {
+    padding-left: 2em;
+  }
+  .arrayInner{
+    padding-left: 2em;
+  }
+  .attrs {
+    > .attr{
+      text-indent: 2em;
+    }
+    .attr:after,
+    > .object > .end:after,
+    > .attr > .end:after{
+      content: ',';
+    }
+    > .attr:last-child:after,
+    > .object:last-child > .end:after,
+    > .attr.array:after,
+    > .attr.object:after{
+      content: '';
+    }
+  }
+  .attr.string .value {
+    &:before {
+      content: '"';
+      padding-left: 0.5em;
+    }
+    &:after{
+      content: '"';
+    }
+  }
+  p.end {
+    margin-bottom: 0;
+  }
+  .start {
+    padding-left: 2em;
+  }
+}

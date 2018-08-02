@@ -8,7 +8,7 @@ import ProxySelectList from './proxySelect.list';
 import { SHOW_PROXY_COPY } from '../../constant/command';
 
 interface ProxySelectProps {
-  list: ProxyInfo[]
+  list: Immutable.List<ProxyInfo>
   list_loading: boolean
   active_id: string
   config: any
@@ -76,7 +76,7 @@ class ProxySelect extends React.Component<ProxySelectProps, ProxySelectState> {
 
   getActiveProxy() {
     const { active_id } = this.props;
-    const activeProxys = this.props.list.filter(proxy => active_id === proxy._id);
+    const activeProxys = this.props.list.toJS().filter((proxy: any) => active_id === proxy._id);
     return activeProxys[0] || {};
   }
   
@@ -88,14 +88,14 @@ class ProxySelect extends React.Component<ProxySelectProps, ProxySelectState> {
   }
 
   renderProxyList() {
-    const { list = [], active_id, config = {} } = this.props;
+    const { list, active_id, config = {} } = this.props;
     const { proxySort = [] } = config;
 
     return (
       <div className="u-list">
         <div onClick={this.toggleListVisible} className="u-list-mask" />
         <ProxySelectList
-          list={list}
+          list={list ? list.toJS() : []}
           sort={proxySort}
           active_id={active_id}
           onProxyClick={this.handleProxyChange}
@@ -128,7 +128,7 @@ class ProxySelect extends React.Component<ProxySelectProps, ProxySelectState> {
 
 export default connect(
   (state: Immutable.Map<string, any>) => ({
-    list: state.getIn(['proxy', 'list']).toJS(),
+    list: state.getIn(['proxy', 'list']),
     list_loading: state.getIn(['proxy', 'list_loading']),
     active_id: state.getIn(['proxy', 'active_id']),
     auth_state: state.getIn(['auth', 'state']),
