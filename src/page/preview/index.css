@@ -1,0 +1,9 @@
+.p-preview .m-empty {
+  width: 800px;
+  margin: 50px auto;
+  text-align: center; }
+  .p-preview .m-empty .icon {
+    font-size: 80px;
+    margin-bottom: 20px; }
+  .p-preview .m-empty .tip {
+    line-height: 2.5; }
