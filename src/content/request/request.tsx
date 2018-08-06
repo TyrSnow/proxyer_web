@@ -1,9 +1,7 @@
 import * as React from 'react';
 import {
   Icon,
-  message
 } from 'antd';
-import axios from 'axios';
 import * as Clipboard from 'clipboard';
 
 
@@ -11,7 +9,6 @@ import IconButton from '../../components/iconButton';
 import { autobind } from '../../helper/autobind';
 import { period } from '../../util/format';
 import { MethodTag, StatusTag } from '../../components/tags';
-import { SHARE_TYPE } from '../../constant/share';
 
 interface RequestItemProps {
   _id: string
@@ -45,26 +42,12 @@ class RequestItem extends React.Component<RequestItemProps, RequestItemState> {
     });
   }
 
-  createShareCodeError(err: any) {
-    message.error(err.message);
-  }
-
-  updateShareCode(resp: any) {
+  updateShareCode() {
     this.setState({
-      shareCode: resp.data.data._id,
+      shareCode: this.props._id,
     }, () => {
       this.startCopyListen();
     });
-  }
-
-  createShareCode() {
-    const { _id, method, status, finished, url } = this.props;
-    axios.post('/api/share', {
-      share_type: SHARE_TYPE.REQUEST,
-      payload: {
-        _id, method, status, finished, url,
-      },
-    }).then(this.updateShareCode).catch(this.createShareCodeError);
   }
 
   startCopyListen() {
@@ -86,7 +69,7 @@ class RequestItem extends React.Component<RequestItemProps, RequestItemState> {
 
   handleShareClick(e: React.MouseEvent) {
     e.nativeEvent.preventDefault();
-    this.createShareCode();
+    this.updateShareCode();
   }
 
   createRequestPattern() {
