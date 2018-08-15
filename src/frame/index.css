@@ -1,47 +1,25 @@
-.p-main {
-  padding: 50px 0 0 50px; }
-  .p-main .frame-header {
-    width: 100%;
-    height: 50px;
-    position: absolute;
-    left: 0;
-    top: 0;
-    z-index: 10;
-    line-height: 50px;
-    transition: all .3s;
-    background: #fff;
-    box-shadow: 0 2px 8px #f0f1f2;
+.frame-header {
+  width: 100%;
+  height: 50px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 10;
+  line-height: 50px;
+  transition: all .3s;
+  background: #fff;
+  box-shadow: 0 2px 8px #f0f1f2;
+  display: flex;
+  justify-content: space-between; }
+  .frame-header .control {
+    margin-right: 10px;
     display: flex;
-    justify-content: space-between; }
-    .p-main .frame-header .control {
-      margin-right: 10px;
-      display: flex;
-      align-items: center; }
-      .p-main .frame-header .control .anticon {
-        line-height: 50px; }
+    align-items: center; }
+    .frame-header .control .anticon {
+      line-height: 50px; }
 
 .p-main {
   padding: 50px 0 0 50px; }
-  .p-main .frame-sider {
-    width: 50px;
-    height: 100%;
-    border-right: 1px solid #e8e8e8;
-    position: absolute;
-    left: 0;
-    top: 0;
-    padding-top: 50px;
-    z-index: 9;
-    background: #FFF;
-    font-size: 24px;
-    text-align: center;
-    line-height: 50px; }
-    .p-main .frame-sider .link {
-      color: #AAA; }
-      .p-main .frame-sider .link.active, .p-main .frame-sider .link:hover {
-        color: #52C3DD; }
-    .p-main .frame-sider .anticon {
-      cursor: pointer;
-      padding: 10px; }
   .p-main .frame-content {
     height: 100%;
     padding: 10px;

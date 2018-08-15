@@ -7,19 +7,20 @@ import './index.css';
 import { connect } from 'react-redux';
 import actions from '../../store/actions';
 import { autobind } from '../../helper/autobind';
-import { Pattern } from '../../definition/proxy';
 import { METHOD } from '../../constant/http';
-import { SHOW_CREATE_PATTERN, SHOW_REQUEST_DETAIL } from '../../constant/command';
+import { SHOW_CREATE_PATTERN, SHOW_REQUEST_DETAIL, SHOW_PATTERN_DETAIL } from '../../constant/command';
 import { PROXY_STATUS } from '../../constant/proxy';
+import { convertToFormFields } from '../../util/convertToFormFields';
+import { message } from 'antd';
 
-const LOOP_TIME = 1000;
+const LOOP_TIME = 1500;
 
 interface RequestContentProps {
   activeId: string
   requestCache: Immutable.Map<string, any>
-  patterns: Pattern[]
+  patterns: Immutable.List<Immutable.Map<string, any>>
   status: PROXY_STATUS
-  fetchRequest(proxyId: string, lastModify: string): any
+  fetchRequest(proxyId: string, lastModify?: string): any
   trigger(command: string, payload?: any): any
 }
 
@@ -27,6 +28,7 @@ interface RequestContentState {
   activeId?: string
   requests: any
   fetching: boolean
+  filters: any[]
 }
 
 @autobind
@@ -34,6 +36,7 @@ class RequestContent extends React.Component<RequestContentProps, RequestContent
   public state: RequestContentState = {
     requests: {},
     fetching: false,
+    filters: [],
   };
 
   private updateLoop?: number;
@@ -59,7 +62,8 @@ class RequestContent extends React.Component<RequestContentProps, RequestContent
       (nextProps.requestCache !== this.props.requestCache) ||
       (nextProps.activeId !== this.props.activeId) ||
       (nextState.activeId !== this.state.activeId) ||
-      (nextState.requests !== this.state.requests)
+      (nextState.requests !== this.state.requests) ||
+      (nextState.filters !== this.state.filters)
     ) {
       return true;
     }
@@ -67,19 +71,12 @@ class RequestContent extends React.Component<RequestContentProps, RequestContent
   }
 
   componentWillUnmount() {
-    if (this.updateLoop) {
-      clearTimeout(this.updateLoop);
-      delete this.updateLoop;
-    }
+    this.stopLoopUpdate();
   }
 
   update() {
     if (this.props.status === PROXY_STATUS.RUNNING) {
-      this.setState({
-        fetching: true,
-      }, () => {
-        this.props.fetchRequest(this.state.activeId as string, this.state.requests.lastModify).then(this.wait);
-      });
+      this.props.fetchRequest(this.state.activeId as string).then(this.wait).catch(this.errorWait);
     }
   }
 
@@ -91,6 +88,11 @@ class RequestContent extends React.Component<RequestContentProps, RequestContent
     }
   }
 
+  errorWait(err: any) {
+    console.debug('fetch err: ', err);
+    this.wait();
+  }
+
   wait() {
     this.updateLoop = setTimeout(this.next, LOOP_TIME);
   }
@@ -100,11 +102,38 @@ class RequestContent extends React.Component<RequestContentProps, RequestContent
       clearTimeout(this.updateLoop);
     }
     this.setState({
+      fetching: true,
       activeId: props.activeId,
       requests: props.requestCache.get(props.activeId) || {},
     }, () => {
       this.wait();
     });
+  }
+
+  stopLoopUpdate() {
+    if (this.updateLoop) {
+      clearTimeout(this.updateLoop);
+      delete this.updateLoop;
+    }
+    this.setState({
+      fetching: false,
+    });
+  }
+
+  showPatternDetail(patternId: string) {
+    const pattern = this.props.patterns.find(p => {
+      return !!p && p.get('_id') === patternId;
+    });
+
+    if (pattern) {
+      this.props.trigger(
+        SHOW_PATTERN_DETAIL,
+        convertToFormFields(pattern.toJS()),
+      );
+    } else {
+      console.debug('匹配模式已经不存在: ', patternId, this.props.patterns);
+      message.error('匹配模式已经不存在!');
+    }
   }
 
   showRequestDetail(detail: any) {
@@ -118,17 +147,26 @@ class RequestContent extends React.Component<RequestContentProps, RequestContent
     });
   }
 
+  handleFilterChange(filters: any[]) {
+    console.debug('filter will change: ', filters);
+    this.setState({
+      filters,
+    });
+  }
+
   render() {
     return (
       <div className="m-request">
         <RequestFilter
           loading={this.state.fetching}
+          onChange={this.handleFilterChange}
         />
         <RequestList
           list={this.state.requests.list}
-          patterns={this.props.patterns}
+          filters={this.state.filters}
           createRequestPattern={this.createRequestPattern}
           showRequestDetail={this.showRequestDetail}
+          showPatternDetail={this.showPatternDetail}
         />
       </div>
     )

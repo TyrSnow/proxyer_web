@@ -13,10 +13,12 @@ function generateIdMap(list: any[]) {
 
 function mergeCachedList(state: Immutable.Map<string, any>, proxyId: string, lastModify: string, list: any[]) {
   if (list.length === 0) {
-    return state;
+    const proxy = state.get(proxyId) || {};
+    proxy.lastModify = lastModify;
+    return state.set(proxyId, proxy);
   }
-  const cache = state.get(proxyId);
-  if (cache) {
+  const cache = state.get(proxyId) || {};
+  if (cache.idMap) {
     // 合并新日志里面id一样的数据
     const { idMap } = cache;
     const oriList = cache.list;

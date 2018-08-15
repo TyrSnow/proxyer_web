@@ -5,19 +5,9 @@
     border-bottom: 1px solid #F0F0F0;
     position: relative;
     flex-wrap: nowrap;
+    z-index: 101;
     &:hover {
-      &:before {
-        content: '';
-        display: block;
-        width: 6px;
-        height: 6px;
-        border-radius: 100%;
-        background: #F00;
-        position: absolute;
-        top: 50%;
-        left: 5px;
-        margin-top: -3px;
-      }
+      font-weight: bold;
     }
     &:last-child {
       border-bottom: none;
@@ -27,6 +17,7 @@
     }
     .path {
       width: 100%;
+      cursor: pointer;
       .anticon {
         margin-left: 5px;
       }
@@ -45,5 +36,18 @@
   .u-fetchStatus {
     font-size: 16px;
     margin-right: 4px;
+  }
+  .filter {
+    display: flex;
+    align-items: center;
+    .label {
+      vertical-align: middle;
+      margin: 0 5px;
+      flex-shrink: 0;
+    }
+  }
+  .url {
+    width: 400px;
+    margin: 0 10px;
   }
 }

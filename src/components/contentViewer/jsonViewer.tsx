@@ -1,7 +1,25 @@
 import * as React from 'react';
+import {
+  Tag,
+  message,
+} from 'antd';
+
 import { autobind } from '../../helper/autobind';
+import { copy } from '../../util/copy';
+
+function copyBigString(text: string) {
+  copy(text).then(
+    () => message.success('没有显示的文本已经复制到剪贴板'),
+  ).catch(
+    (msg: string) => message.error(msg),
+  );
+}
 
 function formatString(str: string) {
+  if (str.length > 200) {
+    // tslint:disable-next-line:jsx-no-lambda
+    return <Tag onClick={() => copyBigString(str)} color="cyan">Big String</Tag>;
+  }
   return str.replace('"', '\\"');
 }
 
@@ -11,7 +29,11 @@ function stringify(data: any) {
   } else if (typeof data === 'undefined') {
     return 'undefined,';
   }
-  return data.toString();
+  const stringData = data.toString();
+  if (stringData.length > 200) {
+    return <Tag color="orange">Big {typeof data}</Tag>
+  }
+  return stringData;
 }
 
 interface JsonViewerProps {
@@ -39,10 +61,22 @@ class JsonViewer extends React.Component<JsonViewerProps, JsonViewerState> {
     };
   }
 
+  shouldComponentUpdate(nextProps: JsonViewerProps, nextState: JsonViewerState) {
+    if (
+      (nextProps.content !== this.props.content) ||
+      (nextState.json !== this.state.json)
+    ) {
+      return true;
+    }
+    return false;
+  }
+
   componentWillReceiveProps(nextProps: JsonViewerProps) {
-    this.setState({
-      json: JsonViewer.jsonParse(nextProps.content),
-    });
+    if (nextProps.content !== this.props.content) {
+      this.setState({
+        json: JsonViewer.jsonParse(nextProps.content),
+      });
+    }
   }
 
   renderObject(data: object): any {
@@ -122,6 +156,7 @@ class JsonViewer extends React.Component<JsonViewerProps, JsonViewerState> {
   }
 
   render() {
+    console.debug('JSONViewer render');
     if (this.state.json instanceof Array) {
       return (
         <div className="m-jsonViewer">

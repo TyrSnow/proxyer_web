@@ -22,10 +22,15 @@ export function fetchRequest(
   lastModify?: string,
 ): ThunkAction<Promise<Action>, AppStore, any, any> {
   return (dispatch, getState) => {
+    let modify = lastModify;
+    if (!modify) {
+      const proxy = getState().getIn(['request', proxyId]) || {};
+      modify = proxy.lastModify;
+    }
     return axios.get(`/api/request`, {
       params: {
         proxy_id: proxyId,
-        last_modify: lastModify,
+        last_modify: modify,
       },
     }).then(
       resp => dispatch(updateRequest(proxyId, resp.data.data.last_modify, resp.data.data.list)),

@@ -16,7 +16,6 @@ const initialState = Immutable.fromJS({
 
 function merge_detail(state: Immutable.Map<string, any>, proxyId: string, detail: any): any {
   const detailId = state.getIn(['detail', '_id']);
-  console.debug('merge_detail: ', detailId, proxyId);
   if (detailId === proxyId) {
     return update_active_detail(state, proxyId, detail);
   }
@@ -24,7 +23,7 @@ function merge_detail(state: Immutable.Map<string, any>, proxyId: string, detail
   const proxyIndex = state.get('list').findIndex((item: any) => {
     return item.get('_id') === proxyId;
   });
-  console.debug('merge_detail findIndex item: ', proxyIndex);
+
   const oriDetail = state.getIn(['list', proxyIndex]);
   const newDetail = oriDetail.merge(detail);
   return state
@@ -35,7 +34,7 @@ function update_active_detail(state: Immutable.Map<string, any>, activeId: strin
   const activeIndex = state.get('list').findIndex((item: any) => {
     return item.get('_id') === activeId;
   });
-  console.debug('update_active_detail findIndex item: ', activeIndex);
+  
   const status = state.getIn(['detail', 'status']);
   detail.status = status;
   const oriDetail = state.getIn(['list', activeIndex]);
@@ -48,7 +47,6 @@ function update_active_detail(state: Immutable.Map<string, any>, activeId: strin
 }
 
 export default (state = initialState, action: ProxyAction) => {
-  console.debug('proxy store update with: ', action);
   let activeId;
   switch (action.type) {
     case TYPES.LOAD_LIST:

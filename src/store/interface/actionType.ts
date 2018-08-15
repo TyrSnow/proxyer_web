@@ -1,0 +1,1 @@
+export const UPDATE_INTERFACE_LIST = Symbol('UPDATE_INTERFACE_LIST');

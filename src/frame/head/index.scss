@@ -1,25 +1,22 @@
-.p-main {
-  padding: 50px 0 0 50px;
-  .frame-header {
-    width: 100%;
-    height: 50px;
-    position: absolute;
-    left: 0;
-    top: 0;
-    z-index: 10;
-    line-height: 50px;
-    transition: all .3s;
-    background: #fff;
-    box-shadow: 0 2px 8px #f0f1f2;
+.frame-header {
+  width: 100%;
+  height: 50px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 10;
+  line-height: 50px;
+  transition: all .3s;
+  background: #fff;
+  box-shadow: 0 2px 8px #f0f1f2;
+  display: flex;
+  justify-content: space-between;
+  .control {
+    margin-right: 10px;
     display: flex;
-    justify-content: space-between;
-    .control {
-      margin-right: 10px;
-      display: flex;
-      align-items: center;
-      .anticon {
-        line-height: 50px;
-      }
+    align-items: center;
+    .anticon {
+      line-height: 50px;
     }
   }
 }

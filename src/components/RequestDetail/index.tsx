@@ -3,39 +3,84 @@ import { MethodTag, StatusTag } from '../tags';
 import {
   Spin,
   Tabs,
+  Button,
+  message,
 } from 'antd';
 import ObjectTable from '../objectTable';
 import ContentViewer from '../contentViewer';
 
 import './index.css';
+import axios from 'axios';
+import { autobind } from '../../helper/autobind';
 
 const { TabPane } = Tabs;
 
 interface RequestDetailProps {
+  _id: string
   loading: boolean
   method: number
   status: number
   url: string
+  query: string
+  params?: object
   finished: boolean
   requestContent: string
   responseContent: string
   headers: object
   responseHeaders: object
   style?: React.CSSProperties
+  onSend(requestId: string): any
 }
 
-class RequestDetail extends React.Component<RequestDetailProps> {
+interface RequestDetailState {
+  activeKey: string
+}
+
+@autobind
+class RequestDetail extends React.Component<RequestDetailProps, RequestDetailState> {
   static getContentType(headers: any) {
     return headers['content-type'] || headers['Content-Type'];
   }
 
+  public state: RequestDetailState = {
+    activeKey: 'reqHeaders',
+  };
+
+  send() {
+    const {
+      _id,
+    } = this.props;
+
+    axios.post(`/api/request/${_id}`, {}).then((resp) => {
+      this.props.onSend(resp.data.data);
+    }).catch(err => message.error(err.message));
+  }
+
+  shouldBodyDisabled() {
+    if (
+      (this.props.requestContent) &&
+      (this.props.requestContent.length > 0)
+    ) {
+      return false;
+    }
+    return true;
+  }
+
+  handleTabKeyChange(activeKey: string) {
+    this.setState({
+      activeKey,
+    })
+  }
+
   render() {
     const {
+      _id,
       loading,
       method,
       status,
       finished,
       url,
+      params,
       requestContent,
       responseContent,
       headers = {},
@@ -43,15 +88,21 @@ class RequestDetail extends React.Component<RequestDetailProps> {
       style,
     } = this.props;
 
+    console.debug('RequestDetail render: ', this.props);
     return (
       <div style={style} className="m-requestDetail">
         <div className="block">
-          <div className="line">
-            <span className="tags">
-              <MethodTag method={method} />
-              <StatusTag status={status} finished={finished} />
+          <div className="line f-df">
+            <div className="info">
+              <span className="tags">
+                <MethodTag method={method} />
+                <StatusTag status={status} finished={finished} />
+              </span>
+              <span className="url">{url}</span>
+            </div>
+            <span className="control">
+              <Button onClick={this.send} type="primary">重发</Button>
             </span>
-            <span className="url">{url}</span>
           </div>
         </div>
         <div className="block full">
@@ -59,11 +110,18 @@ class RequestDetail extends React.Component<RequestDetailProps> {
             loading ? (
               <Spin spinning={loading}><div style={{ height: '300px' }} /></Spin>
             ) : (
-              <Tabs>
-                <TabPane key="reqHeaders" tab="Request Headers">
+              <Tabs onChange={this.handleTabKeyChange} key={_id} activeKey={this.state.activeKey}>
+                {
+                  params ? (
+                    <TabPane key="reqParams" tab="Params">
+                      <ObjectTable data={params} />
+                    </TabPane>
+                  ) : null
+                }
+                <TabPane key="reqHeaders" tab="Headers">
                   <ObjectTable data={headers} />
                 </TabPane>
-                <TabPane key="reqBody" tab="Request Body">
+                <TabPane disabled={this.shouldBodyDisabled()} key="reqBody" tab="Body">
                   <ContentViewer
                     contentType={RequestDetail.getContentType(headers)}
                     content={requestContent}

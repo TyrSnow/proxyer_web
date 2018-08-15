@@ -9,6 +9,7 @@ interface RequestListProps {
   createPattern(): any
   editPattern(detail: any): any
   togglePatternEnable(pattern: any, patternId: string, proxyId?: string): any
+  deletePattern(patternId: string, proxyId?: string): any
 }
 
 class RequestList extends React.Component<RequestListProps> {
@@ -49,6 +50,7 @@ class RequestList extends React.Component<RequestListProps> {
                 {...jsPattern}
                 editPattern={this.props.editPattern}
                 togglePatternEnable={this.props.togglePatternEnable}
+                deletePattern={this.props.deletePattern}
               />
             );
           })

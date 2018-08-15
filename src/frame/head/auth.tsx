@@ -11,9 +11,12 @@ import actions from '../../store/actions';
 
 import AuthModifyPassword from './auth.modifyPassword';
 import { autobind } from '../../helper/autobind';
+import { AUTH_TYPE } from '../../constant/auth';
+import history from '../../shared/history';
 
 interface AuthProps {
   name: string
+  auth: AUTH_TYPE
   logOut(): any
   modifyPassword(oldPassword: string, password: string): any
 }
@@ -35,6 +38,10 @@ class Auth extends React.Component<AuthProps, AuthState> {
     return this.props.modifyPassword(fields.oldPassword, fields.password);
   }
 
+  toSystem() {
+    history.push('/system');
+  }
+
   showModify() {
     this.setState({
       modifyPasswordVisible: true,
@@ -50,6 +57,11 @@ class Auth extends React.Component<AuthProps, AuthState> {
   renderSubMenus() {
     return (
       <Menu>
+        {
+          this.props.auth >= AUTH_TYPE.ADMIN ? (
+            <Menu.Item onClick={this.toSystem}>系统管理</Menu.Item>
+          ) : null
+        }
         <Menu.Item onClick={this.showModify}>修改密码</Menu.Item>
         <Menu.Item onClick={this.props.logOut}>注销登录</Menu.Item>
       </Menu>
@@ -81,6 +93,7 @@ class Auth extends React.Component<AuthProps, AuthState> {
 export default connect(
   (state: Immutable.Map<string, any>) => ({
     name: state.getIn(['auth', 'name']),
+    auth: state.getIn(['auth', 'auth']),
   }),
   {
     logOut: actions.auth.clearAuth,

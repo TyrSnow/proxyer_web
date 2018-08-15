@@ -16,6 +16,7 @@ interface PatternContentProps {
   hosts: Immutable.List<any>
   trigger(name: string, payload?: any): any
   editPattern(pattern: any, patternId: string, proxyId?: string): any
+  deletePattern(patternId: string, proxyId?: string): any
 }
 
 @autobind
@@ -46,6 +47,7 @@ class PatternContent extends React.Component<PatternContentProps> {
           hosts={this.props.hosts}
           createPattern={this.createPattern}
           editPattern={this.editPattern}
+          deletePattern={this.props.deletePattern}
           togglePatternEnable={this.togglePatternEnable}
         />
       </div>
@@ -61,5 +63,6 @@ export default connect(
   {
     trigger: actions.command.trigger,
     editPattern: actions.proxy.editPattern,
+    deletePattern: actions.proxy.deletePattern,
   },
 )(PatternContent);

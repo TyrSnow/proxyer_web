@@ -4,6 +4,8 @@ import Auth from './auth';
 import QuickControl from '../../components/quickControl';
 import { autobind } from '../../helper/autobind';
 
+import './index.css';
+
 interface HeadState {
   active: string
 }

@@ -1,12 +1,11 @@
 import * as React from 'react';
+import { Spin } from 'antd';
 import { Switch, Route } from 'react-router';
 import { connect } from 'react-redux';
 import * as Immutable from 'immutable';
 
 import actions from '../../store/actions';
 import history from '../../shared/history';
-
-import MainFrame from '../../frame/index';
 
 import PatternContent from '../../content/pattern';
 import RequestContent from '../../content/request';
@@ -18,12 +17,37 @@ import { ProxyInfo } from '../../definition/proxy';
 import Proxy from '../../modal/proxy/index';
 import Pattern from '../../modal/pattern/index';
 import RequestModal from '../../modal/request/index';
+import Head from '../../frame/head';
+import LinkSider from '../../frame/linkSider';
+
+import './index.css';
+import ApiContent from '../../content/api';
+
+const links = [
+  {
+    to: '/',
+    icon: 'wifi',
+  }, {
+    to: '/pattern',
+    icon: 'filter',
+  }, {
+    to: '/server',
+    icon: 'desktop',
+  }, {
+    to: '/api',
+    icon: 'api',
+  }, {
+    to: '/setting',
+    icon: 'setting',
+  },
+];
 
 interface IndexPageProps {
   state: AUTH_STATE
   initial: boolean
   list: Immutable.List<ProxyInfo>
   list_initial: boolean
+  proxy_detail_loading: boolean
   loadList(): any
 }
 
@@ -65,18 +89,26 @@ class IndexPage extends React.Component<IndexPageProps> {
 
   render() {
     console.debug('Index Page render: ', this.props);
+    const { proxy_detail_loading } = this.props;
     return (
-      <MainFrame>
-        <Switch>
-          <Route path="/pattern" component={PatternContent} />
-          <Route path="/setting" component={SettingContent} />
-          <Route path="/server" component={ServerContent} />
-          <Route path="/" component={RequestContent} />
-        </Switch>
-        <Proxy />
-        <Pattern />
-        <RequestModal />
-      </MainFrame>
+      <div className="page p-main">
+        <Head />
+        <LinkSider links={links} />
+        <div className="frame-content">
+          <Spin spinning={proxy_detail_loading}>
+            <Switch>
+              <Route path="/pattern" component={PatternContent} />
+              <Route path="/setting" component={SettingContent} />
+              <Route path="/server" component={ServerContent} />
+              <Route path="/api" component={ApiContent} />
+              <Route path="/" component={RequestContent} />
+            </Switch>
+            <Proxy />
+            <Pattern />
+            <RequestModal />
+          </Spin>
+        </div>
+      </div>
     );
   }
 }
@@ -87,6 +119,7 @@ export default connect(
     initial: state.getIn(['auth', 'initial']),
     list: state.getIn(['proxy', 'list']),
     list_initial: state.getIn(['proxy', 'list_initial']),
+    proxy_detail_loading: state.getIn(['proxy', 'detail_loading']),
   }), {
     logIn: actions.auth.solveAuth,
     loadList: actions.proxy.loadList,

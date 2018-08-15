@@ -4,24 +4,17 @@
     padding: 10px 15px;
     border-bottom: 1px solid #F0F0F0;
     position: relative;
-    flex-wrap: nowrap; }
-    .m-requestlist .u-request:hover:before {
-      content: '';
-      display: block;
-      width: 6px;
-      height: 6px;
-      border-radius: 100%;
-      background: #F00;
-      position: absolute;
-      top: 50%;
-      left: 5px;
-      margin-top: -3px; }
+    flex-wrap: nowrap;
+    z-index: 101; }
+    .m-requestlist .u-request:hover {
+      font-weight: bold; }
     .m-requestlist .u-request:last-child {
       border-bottom: none; }
     .m-requestlist .u-request .tags {
       width: 150px; }
     .m-requestlist .u-request .path {
-      width: 100%; }
+      width: 100%;
+      cursor: pointer; }
       .m-requestlist .u-request .path .anticon {
         margin-left: 5px; }
     .m-requestlist .u-request .cost {
@@ -33,3 +26,15 @@
 .m-filter.ui-panel .u-fetchStatus {
   font-size: 16px;
   margin-right: 4px; }
+
+.m-filter.ui-panel .filter {
+  display: flex;
+  align-items: center; }
+  .m-filter.ui-panel .filter .label {
+    vertical-align: middle;
+    margin: 0 5px;
+    flex-shrink: 0; }
+
+.m-filter.ui-panel .url {
+  width: 400px;
+  margin: 0 10px; }

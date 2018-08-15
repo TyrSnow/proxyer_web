@@ -91,12 +91,19 @@ class RequestModal extends React.Component<RequestModalProps, RequestModalState>
     });
   }
 
+  changeRequest(detail: any) {
+    console.debug('detail change: ', detail);
+    this.setState({
+      payload: detail,
+      detail,
+    });
+  }
+
   render() {
     const { visible, detail = {}, loading } = this.state;
 
     return (
       <div className={`m-requestModal${visible ? ' active' : ''}`}>
-        <div onClick={this.hide} className="u-mask u-mask_top" />
         <div onClick={this.hide} className="u-mask" />
         <div
           onClick={this.hide}
@@ -105,6 +112,7 @@ class RequestModal extends React.Component<RequestModalProps, RequestModalState>
         <RequestDetail
           loading={loading}
           {...detail}
+          onSend={this.changeRequest}
         />
       </div>
     );

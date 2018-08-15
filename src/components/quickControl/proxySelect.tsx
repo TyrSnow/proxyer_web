@@ -58,7 +58,9 @@ class ProxySelect extends React.Component<ProxySelectProps, ProxySelectState> {
     this.setState({
       listVisible: false,
     });
-    this.props.setActive(e);
+    if (e !== this.props.active_id) {
+      this.props.setActive(e);
+    }
   }
 
   copyProxy(proxy: ProxyInfo) {

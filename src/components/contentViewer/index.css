@@ -1,32 +1,52 @@
-.m-jsonViewer .objectInner {
-  padding-left: 2em; }
+.m-contentViewer .title {
+  font-size: 14px;
+  text-indent: 1em; }
 
-.m-jsonViewer .arrayInner {
-  padding-left: 2em; }
+.m-jsonViewer {
+  border: 1px solid #EEE;
+  padding: 20px 0; }
+  .m-jsonViewer .objectInner {
+    padding-left: 2em; }
+  .m-jsonViewer .arrayInner {
+    padding-left: 2em; }
+  .m-jsonViewer .attrs > .attr {
+    text-indent: 2em; }
+    .m-jsonViewer .attrs > .attr .ant-tag {
+      text-indent: 0;
+      margin-right: 0; }
+  .m-jsonViewer .attrs .attr:after,
+  .m-jsonViewer .attrs > .object > .end:after,
+  .m-jsonViewer .attrs > .attr > .end:after {
+    content: ','; }
+  .m-jsonViewer .attrs > .attr:last-child:after,
+  .m-jsonViewer .attrs > .object:last-child > .end:after,
+  .m-jsonViewer .attrs > .attr.array:after,
+  .m-jsonViewer .attrs > .attr.object:after {
+    content: ''; }
+  .m-jsonViewer .attr.string .value:before {
+    content: '"';
+    padding-left: 0.5em; }
+  .m-jsonViewer .attr.string .value:after {
+    content: '"'; }
+  .m-jsonViewer p.end {
+    margin-bottom: 0; }
+  .m-jsonViewer .start {
+    padding-left: 2em; }
 
-.m-jsonViewer .attrs > .attr {
-  text-indent: 2em; }
+.m-formViewer .line {
+  display: flex;
+  border-bottom: 1px solid #EEE; }
+  .m-formViewer .line .column {
+    padding: 4px 8px; }
+  .m-formViewer .line .key {
+    width: 150px;
+    flex-shrink: 0; }
+  .m-formViewer .line .type {
+    width: 150px;
+    flex-shrink: 0; }
+  .m-formViewer .line .value {
+    width: 100%; }
 
-.m-jsonViewer .attrs .attr:after,
-.m-jsonViewer .attrs > .object > .end:after,
-.m-jsonViewer .attrs > .attr > .end:after {
-  content: ','; }
-
-.m-jsonViewer .attrs > .attr:last-child:after,
-.m-jsonViewer .attrs > .object:last-child > .end:after,
-.m-jsonViewer .attrs > .attr.array:after,
-.m-jsonViewer .attrs > .attr.object:after {
-  content: ''; }
-
-.m-jsonViewer .attr.string .value:before {
-  content: '"';
-  padding-left: 0.5em; }
-
-.m-jsonViewer .attr.string .value:after {
-  content: '"'; }
-
-.m-jsonViewer p.end {
-  margin-bottom: 0; }
-
-.m-jsonViewer .start {
-  padding-left: 2em; }
+.m-htmlViewer .preview {
+  border: 1px solid #EEE;
+  margin: 10px; }

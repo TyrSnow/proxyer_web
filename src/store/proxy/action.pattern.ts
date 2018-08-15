@@ -31,3 +31,16 @@ export function editPattern(
     );
   }
 }
+
+export function deletePattern(
+  patternId: string,
+  proxyId?: string,
+): ThunkAction<Promise<Action>, AppStore, any, any> {
+  return (dispatch, getState) => {
+    const activeId = proxyId || getState().getIn(['proxy', 'detail', '_id']);
+    
+    return axios.delete(`/api/proxy/${activeId}/patterns/${patternId}`).then(
+      resp => dispatch(setProxyDetail(activeId, resp.data.data)),
+    );
+  }
+}

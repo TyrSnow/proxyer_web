@@ -1,14 +1,15 @@
 import * as React from 'react';
 import {
+  message,
+  Tooltip,
   Icon,
 } from 'antd';
-import * as Clipboard from 'clipboard';
-
 
 import IconButton from '../../components/iconButton';
 import { autobind } from '../../helper/autobind';
 import { period } from '../../util/format';
 import { MethodTag, StatusTag } from '../../components/tags';
+import { copy } from '../../util/copy';
 
 interface RequestItemProps {
   _id: string
@@ -19,12 +20,13 @@ interface RequestItemProps {
   finished: boolean
   pattern: string
   cost: number
+  parent?: string
   createRequestPattern(url: string, method: number): any
   showRequestDetail(detail: any): any
+  showPatternDetail(patternId: any): any
 }
 
 interface RequestItemState {
-  shareCode?: string
 }
 
 @autobind
@@ -42,69 +44,62 @@ class RequestItem extends React.Component<RequestItemProps, RequestItemState> {
     });
   }
 
+  showMatchedPattern() {
+    this.props.showPatternDetail(this.props.pattern);
+  }
+
   updateShareCode() {
     this.setState({
       shareCode: this.props._id,
-    }, () => {
-      this.startCopyListen();
     });
   }
 
-  startCopyListen() {
-    const { shareCode } = this.state;
-    const clipboard = new Clipboard(`.shareCode${shareCode}`);
-    clipboard.on('success', (e: any) => {
-      console.debug('Action:', e.action);
-      console.debug('Text:', e.text);
-      console.debug('Trigger:', e.trigger);
-  
-      e.clearSelection();
-    });
- 
-    clipboard.on('error', (e: any) => {
-      console.debug('Action:', e.action);
-      console.debug('Trigger:', e.trigger);
-    });
-  }
-
-  handleShareClick(e: React.MouseEvent) {
-    e.nativeEvent.preventDefault();
-    this.updateShareCode();
+  copyShareCode() {
+    const shareUrl = `${location.host}/preview?shareCode=${this.props._id}`;
+    copy(shareUrl).then(
+      () => message.success('分享链接复制成功！'),
+    ).catch(
+      () => message.error('发生了一些错误'),
+    );
   }
 
   createRequestPattern() {
     this.props.createRequestPattern(this.props.url, this.props.method);
   }
 
+  renderQuery(query: string) {
+    if (query.length < 20) {
+      return <span>?{query}</span>
+    }
+    return (
+      <Tooltip title={query}>
+        <span>?{query.substr(0, 19)}…</span>
+      </Tooltip>
+    );
+  }
+
   render() {
     const {
-      method, url, status, finished, pattern, cost, query,
+      method, url, status, finished, pattern, cost, query, parent,
     } = this.props;
-    const {
-      shareCode,
-    } = this.state;
 
     return (
-      <div className="u-request f-df" onClick={this.showDetail}>
+      <div className="u-request f-df">
+        {
+          parent ? (
+            <Icon type="tool" />
+          ) : null
+        }
+        <IconButton onClick={this.copyShareCode} tip="复制分享链接" type="share-alt" />
         <div className="tags">
           <MethodTag method={method} />
           <StatusTag status={status} finished={finished} />
         </div>
-        <div className="path">
+        <div onClick={this.showDetail} className="path">
           <span>{url}</span>
           {
-            shareCode ? (
-              <span className="shareCode">
-                <span className={`shareCode${shareCode}`}>{shareCode}</span>
-                <IconButton tip="复制到粘贴板" type="copy" />
-              </span>
-            ) : (
-              <IconButton onClick={this.handleShareClick} tip="生成分享码并复制到粘贴板" type="share-alt" />
-            )
-          }
-          {
             query ? (
-              <Icon type="flag" />
+              this.renderQuery(query)
             ) : null
           }
         </div>
@@ -112,7 +107,7 @@ class RequestItem extends React.Component<RequestItemProps, RequestItemState> {
         <div className="control">
           {
             pattern ? (
-              <IconButton tip="查看可以匹配的其他模式" type="eye" />
+              <IconButton onClick={this.showMatchedPattern} tip="查看可以匹配的其他模式" type="eye" />
             ) : null
           }
           <IconButton onClick={this.createRequestPattern} tip="创建匹配模式" type="plus-circle-o" />

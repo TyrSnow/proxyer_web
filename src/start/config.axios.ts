@@ -29,7 +29,9 @@ axios.interceptors.response.use(
           break;
         case 500:
         default:
-          return Promise.reject(error.response.data);
+          return Promise.reject(error.response.data.message ? error.response.data : {
+            message: '后台服务不可用',
+          });
       }
     }
     return Promise.reject(error);   // 返回接口返回的错误信息

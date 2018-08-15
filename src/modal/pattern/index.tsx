@@ -44,6 +44,7 @@ class PatternModal extends React.Component<PatternModalProps, ProxyModalState> {
   }
 
   showModal(payload: any) {
+    console.debug('Pattern detail: ', payload);
     this.setState({
       visible: true,
       payload,

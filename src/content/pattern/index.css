@@ -17,10 +17,12 @@
       margin: 1px -10px 0 0; }
       .m-pattern .u-pattern .match .methods .ant-tag:hover {
         margin: 1px 5px 0 0; }
-  .m-pattern .u-pattern .handle {
-    width: 300px; }
-    .m-pattern .u-pattern .handle .anticon {
+  .m-pattern .u-pattern .handle, .m-pattern .u-pattern .throttle {
+    width: 100px;
+    flex-shrink: 0; }
+    .m-pattern .u-pattern .handle .anticon, .m-pattern .u-pattern .throttle .anticon {
       margin: 0 5px;
       cursor: pointer; }
-      .m-pattern .u-pattern .handle .anticon:hover {
-        color: #F00; }
+  .m-pattern .u-pattern .control {
+    width: 80px;
+    flex-shrink: 0; }

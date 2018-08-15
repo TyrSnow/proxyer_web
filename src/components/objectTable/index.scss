@@ -1,8 +1,9 @@
+$border-color: #EEE;
 .m-objectTable {
   .row {
     display: flex;
     padding: 5px 0;
-    border-bottom: 1px solid #EEE;
+    border-bottom: 1px solid $border-color;
     &:last-child {
       border-bottom: none;
     }
@@ -13,6 +14,18 @@
     .key {
       width: 200px;
       flex-shrink: 0;
+    }
+  }
+  &.bordered {
+    border: 1px solid $border-color;
+    .row {
+      padding: 0;
+    }
+    .column {
+      padding: 5px 8px;
+    }
+    .key {
+      border-right: 1px solid $border-color;
     }
   }
 }

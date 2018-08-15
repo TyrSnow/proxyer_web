@@ -30,17 +30,28 @@ class QuickControlBar extends React.Component<QuickControlBarProps> {
 
   componentWillReceiveProps(nextProps: QuickControlBarProps) {
     if (nextProps.activeId !== this.props.activeId) {
-      this.props.syncProxyStatus(nextProps.activeId);
+      this.startSyncLoop(nextProps.activeId);
     }
   }
 
   componentWillMount() {
-    this.syncInterval = setInterval(this.syncStatus, 60000);
+    this.startSyncLoop();
   }
 
   componentWillUnmount() {
-    clearInterval(this.syncInterval);
-    delete this.syncInterval;
+    this.stopSyncLoop();
+  }
+
+  startSyncLoop(activeId?: string) {
+    this.syncInterval = setInterval(this.syncStatus, 60000);
+    this.syncStatus(activeId);
+  }
+
+  stopSyncLoop() {
+    if (this.syncInterval) {
+      clearInterval(this.syncInterval);
+      delete this.syncInterval;
+    }
   }
 
   restartProxy() {
@@ -55,9 +66,9 @@ class QuickControlBar extends React.Component<QuickControlBarProps> {
     this.props.stopProxy(this.props.activeId);
   }
 
-  syncStatus() {
-    if (this.props.activeId) {
-      this.props.syncProxyStatus(this.props.activeId);
+  syncStatus(activeId = this.props.activeId) {
+    if (activeId) {
+      this.props.syncProxyStatus(activeId);
     }
   }
 

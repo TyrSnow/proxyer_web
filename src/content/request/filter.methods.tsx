@@ -13,6 +13,10 @@ interface FilterMethodsState {
 }
 
 class FilterMethods extends React.Component<FilterMethodsProps, FilterMethodsState> {
+  renderMethodTags() {
+    return null;
+  }
+
   render() {
     return (
       <div className="u-filterMethods">

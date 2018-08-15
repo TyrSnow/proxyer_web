@@ -10,3 +10,12 @@
   .m-objectTable .row .key {
     width: 200px;
     flex-shrink: 0; }
+
+.m-objectTable.bordered {
+  border: 1px solid #EEE; }
+  .m-objectTable.bordered .row {
+    padding: 0; }
+  .m-objectTable.bordered .column {
+    padding: 5px 8px; }
+  .m-objectTable.bordered .key {
+    border-right: 1px solid #EEE; }

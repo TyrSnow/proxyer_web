@@ -4,7 +4,7 @@ export function period(ms: number): string {
     if (s > 60) {
       const m = Math.floor(s / 60);
       const ls = s % 60;
-      return `${m}min${ls}s`;
+      return `${m}min${ls.toFixed(0)}s`;
     }
     return `${s.toFixed(2)}s`;
   }

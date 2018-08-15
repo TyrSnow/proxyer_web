@@ -1,4 +1,12 @@
+.m-contentViewer {
+  .title {
+    font-size: 14px;
+    text-indent: 1em;
+  }
+}
 .m-jsonViewer {
+  border: 1px solid #EEE;
+  padding: 20px 0;
   .objectInner {
     padding-left: 2em;
   }
@@ -8,6 +16,10 @@
   .attrs {
     > .attr{
       text-indent: 2em;
+      .ant-tag {
+        text-indent: 0;
+        margin-right: 0;
+      }
     }
     .attr:after,
     > .object > .end:after,
@@ -35,5 +47,31 @@
   }
   .start {
     padding-left: 2em;
+  }
+}
+.m-formViewer {
+  .line {
+    display: flex;
+    border-bottom: 1px solid #EEE;
+    .column {
+      padding: 4px 8px;
+    }
+    .key {
+      width: 150px;
+      flex-shrink: 0;
+    }
+    .type {
+      width: 150px;
+      flex-shrink: 0;
+    }
+    .value {
+      width: 100%;
+    }
+  }
+}
+.m-htmlViewer {
+  .preview {
+    border: 1px solid #EEE;
+    margin: 10px;
   }
 }

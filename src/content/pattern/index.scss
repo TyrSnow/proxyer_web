@@ -28,15 +28,20 @@
         }
       }
     }
-    .handle {
-      width: 300px;
+    .handle, .throttle {
+      width: 100px;
+      flex-shrink: 0;
       .anticon {
         margin: 0 5px;
         cursor: pointer;
-        &:hover {
-          color: #F00;
-        }
+        // &:hover {
+        //   color: #F00;
+        // }
       }
+    }
+    .control {
+      width: 80px;
+      flex-shrink: 0;
     }
   }
 }

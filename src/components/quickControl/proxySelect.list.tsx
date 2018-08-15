@@ -271,7 +271,7 @@ class ProxySelectList extends React.Component<ProxySelectListProps, ProxySelectL
         onClick={(e: any) => this.handleProxyClick(proxy._id)}
         // tslint:disable-next-line:jsx-no-lambda
         onMouseDown={(e: any) => this.onProxyMouseDown(e, proxy._id, index)}
-        className="u-pattern"
+        className={`u-pattern ${proxy._id === this.props.active_id ? 'active' : ''}`}
         style={styles}
         key={proxy._id}
         ref={dom => this.doms[index] = dom}

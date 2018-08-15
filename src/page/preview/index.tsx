@@ -48,7 +48,6 @@ class PreviewPage extends React.Component<PreviewPageProps, PreviewPageState> {
     this.setState({
       data: resp.data.data,
     });
-    console.debug(resp);
   }
 
   loadShareDetail() {
@@ -65,6 +64,12 @@ class PreviewPage extends React.Component<PreviewPageProps, PreviewPageState> {
     }).then(this.updateShareDetail).catch(this.shareError);
   }
 
+  changeRequest(detail: any) {
+    this.setState({
+      data: detail,
+    });
+  }
+
   render() {
     console.debug('PreviewPage render: ', this.props);
     if (this.state.isErr) {
@@ -76,7 +81,10 @@ class PreviewPage extends React.Component<PreviewPageProps, PreviewPageState> {
     }
     return (
       <div className="page p-preview">
-        <RequestDetail {...this.state.data} />
+        <RequestDetail
+          {...this.state.data}
+          onSend={this.changeRequest}
+        />
       </div>
     );
   }

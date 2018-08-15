@@ -36,9 +36,18 @@
     border-radius: 4px;
     background: #FFF;
     border-left: 0px solid #999;
-    transition: border-left 300ms; }
+    transition: border-left 300ms;
+    position: relative; }
     .m-proxySelect .u-pattern:hover {
       border-left: 6px solid #999; }
+    .m-proxySelect .u-pattern.active {
+      border-left-color: #52C3DD; }
+      .m-proxySelect .u-pattern.active:after {
+        content: '\221A';
+        color: #52C3DD;
+        font-size: 22px;
+        position: absolute;
+        right: 10px; }
   .m-proxySelect.active .u-list-panel {
     right: 0; }
   .m-proxySelect.active .u-list-mask {

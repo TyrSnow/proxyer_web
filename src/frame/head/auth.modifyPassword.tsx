@@ -52,7 +52,7 @@ class AuthModifyPassword extends React.Component<AuthModifyPasswordProps> {
           {getFieldDecorator('oldPassword', {
             rules: [{ required: true, message: '请输入当前密码' }]
           })(
-            <Input type="password" prefix={<Icon type="lock" />} />
+            <Input type="password" placeholder="输入当前密码" prefix={<Icon type="lock" />} />
           )}
         </FormItem>
         <FormItem {...formItemLayout} label="新密码">
@@ -62,7 +62,7 @@ class AuthModifyPassword extends React.Component<AuthModifyPasswordProps> {
               validator: this.validateNew,
             }]
           })(
-            <Input type="password" prefix={<Icon type="lock" />} />
+            <Input type="password" placeholder="输入新密码" prefix={<Icon type="lock" />} />
           )}
         </FormItem>
         <FormItem {...formItemLayout} label="确认新密码">
@@ -72,7 +72,7 @@ class AuthModifyPassword extends React.Component<AuthModifyPasswordProps> {
               validator: this.validateConfirm,
             }]
           })(
-            <Input type="password" prefix={<Icon type="lock" />} />
+            <Input type="password" placeholder="再次输入新密码" prefix={<Icon type="lock" />} />
           )}
         </FormItem>
       </Form>

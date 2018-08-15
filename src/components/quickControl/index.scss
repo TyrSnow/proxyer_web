@@ -46,8 +46,19 @@
     background: #FFF;
     border-left: 0px solid #999;
     transition: border-left 300ms;
+    position: relative;
     &:hover {
       border-left: 6px solid #999;
+    }
+    &.active {
+      border-left-color: #52C3DD;
+      &:after {
+        content: '\221A';
+        color: #52C3DD;
+        font-size: 22px;
+        position: absolute;
+        right: 10px;
+      }
     }
   }
   &.active {
