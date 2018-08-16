@@ -1,3 +1,6 @@
+import {
+  message,
+} from 'antd';
 import { Action } from 'redux';
 import { ThunkAction } from 'redux-thunk';
 import axios from 'axios';
@@ -121,7 +124,10 @@ export function startProxy(proxyId?: string): ThunkAction<Promise<Action>, AppSt
     dispatch(updateProxyStatus(activeId as string, PROXY_STATUS.SYNCING));
     return axios.post(`/api/server/${activeId}`).then(
       resp => dispatch(updateProxyStatus(activeId as string, resp.data.data)),
-    );
+    ).catch(err => {
+      message.error(err.message);
+      return dispatch(updateProxyStatus(activeId as string, PROXY_STATUS.STOP));
+    });
   };
 }
 

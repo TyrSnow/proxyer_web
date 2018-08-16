@@ -105,19 +105,19 @@ class RequestDetail extends React.Component<RequestDetailProps, RequestDetailSta
             </span>
           </div>
         </div>
+        {
+          params ? (
+            <div className="block">
+              <ObjectTable data={params} />
+            </div>
+          ) : null
+        }
         <div className="block full">
           {
             loading ? (
               <Spin spinning={loading}><div style={{ height: '300px' }} /></Spin>
             ) : (
               <Tabs onChange={this.handleTabKeyChange} key={_id} activeKey={this.state.activeKey}>
-                {
-                  params ? (
-                    <TabPane key="reqParams" tab="Params">
-                      <ObjectTable data={params} />
-                    </TabPane>
-                  ) : null
-                }
                 <TabPane key="reqHeaders" tab="Headers">
                   <ObjectTable data={headers} />
                 </TabPane>

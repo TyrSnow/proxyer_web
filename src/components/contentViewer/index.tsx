@@ -7,6 +7,8 @@ import './index.css';
 import FormViewer from './formViewer';
 import ObjectTable from '../objectTable';
 import HTMLViewer from './htmlViewer';
+import CopyTag from '../tags/copyTag';
+// import ImageViewer from './imageViewer';
 
 interface ContentViewerProps {
   contentType?: string
@@ -24,16 +26,19 @@ class ContentViewer extends React.Component<ContentViewerProps> {
   }
 
   static isFormData(contentType: string) {
-    return !!contentType.match(/multipart\/form-data/);
+    return !!contentType.match(/^multipart\/form-data/);
   }
 
   static isHTMLContent(contentType: string) {
     return !!contentType.match(/(text\/html)/);
   }
 
+  static isImageContent(contentType: string) {
+    return !!contentType.match(/^image\//);
+  }
+
   renderViewer() {
     const { contentType = '', content } = this.props;
-    const contentLength = content.length;
 
     if (ContentViewer.isJsonContent(contentType)) {
       return <JsonViewer content={content} />;
@@ -51,23 +56,13 @@ class ContentViewer extends React.Component<ContentViewerProps> {
       return <HTMLViewer content={content} />;
     }
 
-    if (contentLength > 100000) {
-      return (
-        <div
-          style={{ wordBreak: 'break-all', height: '500px', overflowY: 'scroll' }}
-          className="u-forceBig"
-        >
-          <div>正文长度过长不予显示</div>
-          <div>{content.substr(0, 1000)}</div>
-        </div>
-      );
-    }
-
+    // if (ContentViewer.isImageContent(contentType)) {
+    //   return <ImageViewer contentType={contentType} content={content} />;
+    // }
   
     return (
       <div className="m-contentViewer">
-        <p>暂未支持的格式</p>
-        <p>{content.substr(0, 100)}...</p>
+        <CopyTag content={content} title="暂未支持的数据格式" />
       </div>
     );
   }
