@@ -22,6 +22,7 @@
   },
   "proxy": "http://localhost:8081",
   "scripts": {
+    "postinstall": "rm -rf node_modules/@types/node",
     "build-css": "node-sass-chokidar src/ -o src/",
     "watch-css": "npm run build-css && node-sass-chokidar src/ -o src/ --watch --recursive",
     "start-js": "react-app-rewired start --scripts-version react-scripts-ts",

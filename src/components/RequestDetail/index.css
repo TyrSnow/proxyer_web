@@ -13,6 +13,11 @@
     margin-bottom: 8px;
     flex: auto;
     overflow: hidden; }
+    .m-requestDetail .block.info {
+      flex-shrink: 0; }
+    .m-requestDetail .block.params {
+      max-height: 30%;
+      flex-shrink: 0; }
     .m-requestDetail .block.full {
       height: 100%; }
     .m-requestDetail .block .ant-tabs {

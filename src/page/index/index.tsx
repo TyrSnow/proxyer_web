@@ -93,20 +93,22 @@ class IndexPage extends React.Component<IndexPageProps> {
     return (
       <div className="page p-main">
         <Head />
-        <LinkSider links={links} />
-        <div className="frame-content">
-          <Spin spinning={proxy_detail_loading}>
-            <Switch>
-              <Route path="/pattern" component={PatternContent} />
-              <Route path="/setting" component={SettingContent} />
-              <Route path="/server" component={ServerContent} />
-              <Route path="/api" component={ApiContent} />
-              <Route path="/" component={RequestContent} />
-            </Switch>
-            <Proxy />
-            <Pattern />
-            <RequestModal />
-          </Spin>
+        <div className="bottom">
+          <LinkSider links={links} />
+          <div className="frame-content">
+            <Spin spinning={proxy_detail_loading}>
+              <Switch>
+                <Route path="/pattern" component={PatternContent} />
+                <Route path="/setting" component={SettingContent} />
+                <Route path="/server" component={ServerContent} />
+                <Route path="/api" component={ApiContent} />
+                <Route path="/" component={RequestContent} />
+              </Switch>
+              <Proxy />
+              <Pattern />
+              <RequestModal />
+            </Spin>
+          </div>
         </div>
       </div>
     );

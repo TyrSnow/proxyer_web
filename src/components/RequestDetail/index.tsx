@@ -91,7 +91,7 @@ class RequestDetail extends React.Component<RequestDetailProps, RequestDetailSta
     console.debug('RequestDetail render: ', this.props);
     return (
       <div style={style} className="m-requestDetail">
-        <div className="block">
+        <div className="block info">
           <div className="line f-df">
             <div className="info">
               <span className="tags">
@@ -107,7 +107,7 @@ class RequestDetail extends React.Component<RequestDetailProps, RequestDetailSta
         </div>
         {
           params ? (
-            <div className="block">
+            <div className="block params">
               <ObjectTable data={params} />
             </div>
           ) : null

@@ -16,7 +16,7 @@
     position: fixed;
     right: -500px;
     bottom: 0;
-    z-index: 100;
+    z-index: 200;
     user-select: none; }
     .m-proxySelect .u-list-panel.drag .u-pattern {
       transition: transform 200ms; }
@@ -27,7 +27,7 @@
     position: fixed;
     left: 0;
     top: 0;
-    z-index: 99;
+    z-index: 199;
     display: none;
     cursor: auto; }
   .m-proxySelect .u-pattern {

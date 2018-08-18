@@ -1,7 +1,12 @@
 .p-main {
-  padding: 50px 0 0 50px;
-  .frame-content {
+  display: flex;
+  flex-direction: column;
+  .bottom {
     height: 100%;
+    display: flex;
+  }
+  .frame-content {
+    width: 100%;
     padding: 10px;
     overflow-y: auto;
     overflow-x: hidden;
