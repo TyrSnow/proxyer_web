@@ -20,7 +20,7 @@ interface ProxyModaPayload {
 interface ProxyModalProps {
   regist(name: string, handler: any): any
   release(name: string, handler: any): any
-  submitCreate(name: string, port: string, proxyId?: string): any
+  submitCreate(name: string, port: number, proxyId?: string): any
   updateProxyDetail(detail: any, proxyId?: string): any
 }
 
@@ -90,9 +90,9 @@ class ProxyModal extends React.Component<ProxyModalProps, ProxyModalState> {
   handleSubmit(fields: any) {
     if (this.state.create) {
       if (this.state.copy) {
-        return this.props.submitCreate(fields.name, fields.port, this.state.payload._id);
+        return this.props.submitCreate(fields.name, parseInt(fields.port, 10), this.state.payload._id);
       }
-      return this.props.submitCreate(fields.name, fields.port);
+      return this.props.submitCreate(fields.name, parseInt(fields.port, 10));
     }
     return this.props.updateProxyDetail(fields, this.state.payload._id);
   }

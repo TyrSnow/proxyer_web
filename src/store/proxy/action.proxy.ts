@@ -164,7 +164,7 @@ export function updateProxyDetail(
 
 export function createProxy(
   name: string,
-  port: string,
+  port: number,
   proxyId?: string,
 ): ThunkAction<Promise<any>, AppStore, any, any> {
   return (dispatch, getState) => {
