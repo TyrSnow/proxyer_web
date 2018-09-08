@@ -18,7 +18,7 @@ class FormViewer extends React.PureComponent<FormViewerProps, FormViewerState> {
   static getBoundary(contentType: string) {
     const keyVal = contentType.match(/boundary=([^;]+)/);
     if (keyVal) {
-      return keyVal[1];
+      return `--${keyVal[1]}`;
     }
     return undefined;
   }
@@ -50,7 +50,6 @@ class FormViewer extends React.PureComponent<FormViewerProps, FormViewerState> {
   static getFieldValue(lines: string[]) {
     return lines.filter(line => (
       (line !== '') &&
-      (!line.match(/^(--)?$/)) &&
       (line.indexOf('Content-') !== 0)
     )).join('\n');
   }

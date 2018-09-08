@@ -22,7 +22,7 @@ export default (state = initialState, action: AuthAction) => {
       return initialState.set('state', AUTH_STATE.LOGING);
 
     case TYPES.CLEAR_AUTH:
-      delete localStorage.token;
+      localStorage.removeItem('token');
       delete axios.defaults.headers.common.authorization;
       return initialState.merge(Immutable.Map({
         state: AUTH_STATE.UNLOGED,
@@ -36,7 +36,7 @@ export default (state = initialState, action: AuthAction) => {
       axios.defaults.headers.common.authorization = `Bearer ${action.user.token}`;
 
       // 存localStorage里
-      localStorage.token = action.user.token;
+      localStorage.setItem('token', action.user.token);
       
       return state.merge(Immutable.Map(Object.assign(
         {

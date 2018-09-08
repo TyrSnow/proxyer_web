@@ -12,6 +12,8 @@ import ContentViewer from '../contentViewer';
 import './index.css';
 import axios from 'axios';
 import { autobind } from '../../helper/autobind';
+import IconButton from '../iconButton';
+import { copy } from '../../util/copy';
 
 const { TabPane } = Tabs;
 
@@ -72,6 +74,15 @@ class RequestDetail extends React.Component<RequestDetailProps, RequestDetailSta
     })
   }
 
+  copyShareLink() {
+    const shareUrl = `${location.host}/preview?shareCode=${this.props._id}`;
+    copy(shareUrl).then(
+      () => message.success('分享链接复制成功！'),
+    ).catch(
+      () => message.error('发生了一些错误'),
+    );
+  }
+
   render() {
     const {
       _id,
@@ -95,6 +106,7 @@ class RequestDetail extends React.Component<RequestDetailProps, RequestDetailSta
           <div className="line f-df">
             <div className="info">
               <span className="tags">
+                <IconButton onClick={this.copyShareLink} type="share" />
                 <MethodTag method={method} />
                 <StatusTag status={status} finished={finished} />
               </span>

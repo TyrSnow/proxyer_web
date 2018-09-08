@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Spin } from 'antd';
-import { Switch, Route } from 'react-router';
+import { Switch } from 'react-router';
 import { connect } from 'react-redux';
 import * as Immutable from 'immutable';
 
@@ -22,6 +22,8 @@ import LinkSider from '../../frame/linkSider';
 
 import './index.css';
 import ApiContent from '../../content/api';
+import SystemContent from '../../content/system';
+import AuthRoute from '../../components/AuthRoute';
 
 const links = [
   {
@@ -34,9 +36,9 @@ const links = [
     to: '/server',
     icon: 'desktop',
   }, {
-    to: '/api',
-    icon: 'api',
-  }, {
+  //   to: '/api',
+  //   icon: 'api',
+  // }, {
     to: '/setting',
     icon: 'setting',
   },
@@ -79,12 +81,12 @@ class IndexPage extends React.Component<IndexPageProps> {
     // if (props.list_initial && props.list.size === 0) {
     //   return history.push('/initialize');
     // }
-    switch (props.state) {
-      case AUTH_STATE.UNLOGED:
-        return history.push('/login');
-      case AUTH_STATE.INIT:
-        return history.push('/loading');
-    }
+    // switch (props.state) {
+    //   case AUTH_STATE.UNLOGED:
+    //     return history.push('/login');
+    //   case AUTH_STATE.INIT:
+    //     return history.push('/loading');
+    // }
   }
 
   render() {
@@ -98,11 +100,12 @@ class IndexPage extends React.Component<IndexPageProps> {
           <div className="frame-content">
             <Spin spinning={proxy_detail_loading}>
               <Switch>
-                <Route path="/pattern" component={PatternContent} />
-                <Route path="/setting" component={SettingContent} />
-                <Route path="/server" component={ServerContent} />
-                <Route path="/api" component={ApiContent} />
-                <Route path="/" component={RequestContent} />
+                <AuthRoute path="/pattern" component={PatternContent} />
+                <AuthRoute path="/setting" component={SettingContent} />
+                <AuthRoute path="/server" component={ServerContent} />
+                <AuthRoute path="/api" component={ApiContent} />
+                <AuthRoute path="/system" component={SystemContent} />
+                <AuthRoute path="/" component={RequestContent} />
               </Switch>
               <Proxy />
               <Pattern />

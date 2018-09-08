@@ -3,4 +3,39 @@
     display: flex;
     justify-content: space-between;
   }
+  .u-list {
+    padding: 0;
+    background: none;
+  }
+  .u-interface {
+    padding: 8px;
+    margin-bottom: 8px;
+    background: #FFF;
+    .ant-tag {
+      width: 50px;
+      text-align: center;
+    }
+    .info {
+      display: flex;
+      justify-content: space-between;
+    }
+    .control {
+
+    }
+    .url {
+      font-weight: bold;
+    }
+    .name {
+      margin-left: 5px;
+    }
+    .content {
+      height: auto;
+      overflow: hidden;
+    }
+    &.collapse {
+      .content {
+        height: 0;
+      }
+    }
+  }
 }

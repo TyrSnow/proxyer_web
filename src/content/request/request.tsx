@@ -90,7 +90,7 @@ class RequestItem extends React.Component<RequestItemProps, RequestItemState> {
             <Icon type="tool" />
           ) : null
         }
-        <IconButton onClick={this.copyShareCode} tip="复制分享链接" type="share-alt" />
+        <IconButton onClick={this.copyShareCode} tip="复制分享链接" type="share" />
         <div className="tags">
           <MethodTag method={method} />
           <StatusTag status={status} finished={finished} />
@@ -106,7 +106,7 @@ class RequestItem extends React.Component<RequestItemProps, RequestItemState> {
         <div className="cost">{cost ? period(cost) : '-'}</div>
         <div className="control">
           {
-            pattern ? (
+            pattern !== '-1' ? (
               <IconButton onClick={this.showMatchedPattern} tip="查看可以匹配的其他模式" type="eye" />
             ) : null
           }

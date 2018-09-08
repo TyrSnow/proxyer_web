@@ -6,6 +6,7 @@ import { PROXY_STATUS } from '../../constant/proxy';
 import { autobind } from '../../helper/autobind';
 import { SHOW_PROXY_DETAIL, SHOW_PROXY_COPY, SHOW_CREATE_PROXY } from '../../constant/command';
 import IconButton from '../iconButton';
+import { Icon } from 'antd';
 
 interface QuickControlBarProps {
   activeId: string
@@ -101,16 +102,16 @@ class QuickControlBar extends React.Component<QuickControlBarProps> {
     switch (this.props.status) {
       case PROXY_STATUS.STOP:
       case PROXY_STATUS.ERROR:
-        return <IconButton tip="启动代理服务器" type="play-circle" onClick={this.startProxy} />;
+        return <IconButton tip="启动代理服务器" type="start" onClick={this.startProxy} />;
       
       case PROXY_STATUS.RUNNING:
         return [
-          <IconButton tip="终止代理服务器" key="stop" type="pause-circle-o" onClick={this.stopProxy} />,
-          <IconButton tip="重启代理服务器" key="restart" type="retweet" onClick={this.restartProxy} />
+          <IconButton tip="终止代理服务器" key="stop" type="stop" onClick={this.stopProxy} />,
+          <IconButton tip="重启代理服务器" key="restart" type="restart" onClick={this.restartProxy} />
         ];
       
       case PROXY_STATUS.SYNCING:
-        return <IconButton type="loading" />;
+        return <Icon type="loading" />;
       
       default:
         return null;
@@ -123,7 +124,7 @@ class QuickControlBar extends React.Component<QuickControlBarProps> {
         {this.renderStatus()}
         <IconButton tip="设置当前代理" onClick={this.editProxy} type="setting" />
         <IconButton tip="以当前代理为模板创建新代理" onClick={this.copyProxy} type="fork" />
-        <IconButton tip="创建新代理" onClick={this.createProxy} type="plus-circle-o" />
+        <IconButton tip="创建新代理" onClick={this.createProxy} type="add" />
       </div>
     );
   }

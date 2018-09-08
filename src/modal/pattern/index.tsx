@@ -8,6 +8,7 @@ import FormWrapModal from '../../components/formWrapModal';
 import { Host } from '../../definition/proxy';
 
 import DetailForm from './detail';
+import DetailMockForm from './detail.mock';
 
 interface PatternModalProps {
   hosts: Immutable.List<Host>
@@ -71,8 +72,8 @@ class PatternModal extends React.Component<PatternModalProps, ProxyModalState> {
     if (fields.server === '') {
       fields.server = null;
     }
-    if (!fields.methods) {
-      fields.methods = [];
+    if (!fields.allow_methods) {
+      fields.allow_methods = [];
     }
     if (this.state.create) {
       return this.props.createPattern(fields);
@@ -98,6 +99,7 @@ class PatternModal extends React.Component<PatternModalProps, ProxyModalState> {
         <DetailForm
           hosts={this.props.hosts}
         />
+        <DetailMockForm />
       </FormWrapModal>
     );
   }

@@ -1,14 +1,20 @@
 import * as Immutable from 'immutable';
 import * as TYPES from './actionType';
+import { SystemAction } from './action.d';
+import generateConfigMap from './generateConfigMap';
 
 const initialState = Immutable.fromJS({
-  config: {},
+  configs: [],
+  getConfig: () => {return;},
 });
 
-export default (state = initialState, action: any) => {
+export default (state = initialState, action: SystemAction) => {
   switch (action.type) {
     case TYPES.UPDATE_CONFIG:
-      return state.set('config', action.config);
+      return state
+        .set('configs', action.configs)
+        .set('configMap', generateConfigMap(action.configs));
+
     default:
       return state;
   }

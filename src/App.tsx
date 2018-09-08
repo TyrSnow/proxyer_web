@@ -10,7 +10,6 @@ import InitialPage from './page/initialize';
 import LoadingPage from './page/loading';
 import IndexPage from './page/index';
 import PreviewPage from './page/preview';
-import SystemPage from './page/system';
 
 class App extends React.Component {
   render() {
@@ -22,7 +21,6 @@ class App extends React.Component {
             <Route path="/initialize" component={InitialPage} />
             <Route path="/login" component={LoginPage} />
             <Route path="/preview" component={PreviewPage} />
-            <Route path="/system" component={SystemPage} />
             <Route path="/" component={IndexPage} />
           </Switch>
         </Router>

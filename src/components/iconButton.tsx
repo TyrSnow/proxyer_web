@@ -1,12 +1,12 @@
 import * as React from 'react';
 import {
-  Icon,
   Tooltip,
 } from 'antd';
 import { autobind } from '../helper/autobind';
-import { IconProps } from 'antd/lib/icon';
+import IconFont from './IconFont';
+import { IconFontProps } from './IconFont';
 
-interface IconButtonProps extends IconProps {
+interface IconButtonProps extends IconFontProps {
   tip?: string
 }
 
@@ -22,11 +22,11 @@ class IconButton extends React.PureComponent<IconButtonProps> {
           mouseEnterDelay={0.5}
           arrowPointAtCenter={true}
         >
-          <Icon className="btnIcon" {...iconProps} />
+          <IconFont className="btnIcon" {...iconProps} />
         </Tooltip>
       );
     }
-    return <Icon className="btnIcon" {...iconProps} />;
+    return <IconFont className="btnIcon" {...iconProps} />;
   }
 }
 

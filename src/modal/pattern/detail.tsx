@@ -9,25 +9,16 @@ import * as Immutable from 'immutable';
 
 import { autobind } from '../../helper/autobind';
 import { METHOD_LABEL_SELECT } from '../../constant/method';
-import { THROTTLE_TYPE_LABEL, THROTTLE_TYPE, HANDLE_TYPE_LABEL, HANDLE_TYPE, MOCK_TYPE, MOCK_TYPE_LABEL } from '../../constant/pattern';
+import { THROTTLE_TYPE_LABEL, THROTTLE_TYPE, HANDLE_TYPE, MOCK_TYPE } from '../../constant/pattern';
 
 import SwitchFormItem from '../../components/switchFormItem';
+import formItemLayout from './formLayout';
 
 const FormItem = Form.Item;
 const { Option } = Select;
 const InputGroup = Input.Group;
-const { TextArea } = Input;
+// const { TextArea } = Input;
 
-const formItemLayout = {
-  labelCol: {
-    xs: { span: 24 },
-    sm: { span: 8 },
-  },
-  wrapperCol: {
-    xs: { span: 24 },
-    sm: { span: 12 },
-  },
-};
 
 interface DetailFormProps extends FormComponentProps {
   hosts: Immutable.List<any>
@@ -56,9 +47,7 @@ class DetailForm extends React.Component<DetailFormProps> {
     mock_content: '',
   };
 
-  static handleOptions = DetailForm.renderLabelOptions(HANDLE_TYPE_LABEL);
   static throttleOptions = DetailForm.renderLabelOptions(THROTTLE_TYPE_LABEL);
-  static mockTypeOptions = DetailForm.renderLabelOptions(MOCK_TYPE_LABEL);
   static methodOptions = DetailForm.renderLabelOptions(METHOD_LABEL_SELECT);
 
   static renderLabelOptions(label: any) {
@@ -94,7 +83,6 @@ class DetailForm extends React.Component<DetailFormProps> {
     } = props.form;
 
     const throttle = parseInt(getFieldValue('throttle') || props.throttle, 10);
-    const handle = parseInt(getFieldValue('handle') || props.handle, 10);
 
     return (
       <Form>
@@ -148,54 +136,6 @@ class DetailForm extends React.Component<DetailFormProps> {
             }
           </InputGroup>
         </FormItem>
-        <FormItem {...formItemLayout} label="请求处理">
-          {
-            getFieldDecorator('handle', {
-              initialValue: props.handle,
-            })(
-              <Select style={{ width: '40%' }}>
-                {DetailForm.handleOptions}
-              </Select>
-            )
-          }
-        </FormItem>
-        {
-          handle !== HANDLE_TYPE.NONE ? (
-            <FormItem key="mockStatus" {...formItemLayout} label="返回状态">
-              {
-                getFieldDecorator('mock_status', {
-                  initialValue: props.mock_status,
-                })(
-                  <Input type="number" />
-                )
-              }
-            </FormItem>
-          ) : null
-        }
-        {
-          handle === HANDLE_TYPE.MOCK ? ([
-            <FormItem key="mockType" {...formItemLayout} label="返回数据类型">
-              {
-                getFieldDecorator('mock_type', {
-                  initialValue: props.mock_type,
-                })(
-                  <Select style={{ width: '100%' }}>
-                    {DetailForm.mockTypeOptions}
-                  </Select>
-                )
-              }
-            </FormItem>,
-            <FormItem key="mockContent" {...formItemLayout} label="返回数据">
-              {
-                getFieldDecorator('mock_content', {
-                  initialValue: props.mock_content,
-                })(
-                  <TextArea rows={5} />
-                )
-              }
-            </FormItem>,
-          ]) : null
-        }
         <FormItem {...formItemLayout} label="转发到">
           {getFieldDecorator('server', {
             initialValue: props.server,

@@ -13,15 +13,18 @@ interface LoadingPageProps {
 
 class LoadingPage extends React.Component<LoadingPageProps> {
   componentWillMount() {
-    const { token } = localStorage;
-    this.props.solveAuth(token);
+    const token = localStorage.getItem('token');
+    this.props.solveAuth(token as string);
   }
 
   componentWillReceiveProps(nextProps: LoadingPageProps) {
     console.debug('History: ', history);
     switch (nextProps.state) {
       case AUTH_STATE.LOGGED:
-        return history.goBack();
+        if (history.length > 1) {
+          return history.goBack();
+        }
+        return history.push('/');
       case AUTH_STATE.UNLOGED:
         return history.push('/login');
       default:

@@ -1,5 +1,7 @@
 .page.p-login {
-  background: url(/images/login_bg.jpg);
+  background-image: url(/images/login_bg.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
   display: flex;
   align-items: center;
   justify-content: center;

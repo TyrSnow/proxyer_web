@@ -1,1 +1,2 @@
 export const UPDATE_REQUEST_LIST = Symbol('UPDATE_REQUEST_LIST');
+export const CLEAR_REQUEST_LIST = Symbol('CLEAR_REQUEST_LIST');

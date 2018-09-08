@@ -44,6 +44,13 @@ export default (state = initialState, action: RequestAction) => {
   switch (action.type) {
     case TYPES.UPDATE_REQUEST_LIST:
       return mergeCachedList(state, action.proxyId, action.lastModify, action.list);
+    
+    case TYPES.CLEAR_REQUEST_LIST:
+      return state.set(action.proxyId, {
+        lastModify: state.get(action.proxyId).lastModify,
+        list: [],
+        idMap: {},
+      });
 
     default:
       return state;

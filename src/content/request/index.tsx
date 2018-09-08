@@ -21,6 +21,7 @@ interface RequestContentProps {
   patterns: Immutable.List<Immutable.Map<string, any>>
   status: PROXY_STATUS
   fetchRequest(proxyId: string, lastModify?: string): any
+  clearRequest(proxyId: string): any
   trigger(command: string, payload?: any): any
 }
 
@@ -154,12 +155,17 @@ class RequestContent extends React.Component<RequestContentProps, RequestContent
     });
   }
 
+  clearList() {
+    this.props.clearRequest(this.state.activeId as string);
+  }
+
   render() {
     return (
       <div className="m-request">
         <RequestFilter
           loading={this.state.fetching}
           onChange={this.handleFilterChange}
+          onClear={this.clearList}
         />
         <RequestList
           list={this.state.requests.list}
@@ -182,6 +188,7 @@ export default connect(
   }),
   {
     fetchRequest: actions.request.fetchRequest,
+    clearRequest: actions.request.clearRequest,
     trigger: actions.command.trigger,
   }
 )(RequestContent);

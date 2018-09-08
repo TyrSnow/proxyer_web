@@ -9,6 +9,7 @@ import { autobind } from '../../helper/autobind';
 interface RequestFilterProps {
   loading: boolean
   onChange(filters: any[]): any
+  onClear(): any
 }
 
 interface RequestFilterState {
@@ -106,7 +107,8 @@ class RequestFilter extends React.Component<RequestFilterProps, RequestFilterSta
       <div className="m-filter ui-panel">
         <div className="f-df">
           <div className="f-df">
-            {this.renderFetchStatus()}
+            <Icon type="delete" onClick={this.props.onClear} />
+            {/* {this.renderFetchStatus()} */}
             {this.renderRequestingOnly()}
             <div className="filter url">
               <div className="label">URL匹配:</div>
@@ -118,7 +120,7 @@ class RequestFilter extends React.Component<RequestFilterProps, RequestFilterSta
               />
             </div>
           </div>
-          {this.renderCollapseIcon()}
+          {/* {this.renderCollapseIcon()} */}
         </div>
         {
           this.state.collapse ? null : (

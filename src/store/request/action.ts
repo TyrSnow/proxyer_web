@@ -37,3 +37,10 @@ export function fetchRequest(
     );
   }
 }
+
+export function clearRequest(proxyId: string) {
+  return {
+    type: TYPES.CLEAR_REQUEST_LIST,
+    proxyId,
+  };
+}

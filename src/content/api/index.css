@@ -1,3 +1,27 @@
 .m-api .u-control {
   display: flex;
   justify-content: space-between; }
+
+.m-api .u-list {
+  padding: 0;
+  background: none; }
+
+.m-api .u-interface {
+  padding: 8px;
+  margin-bottom: 8px;
+  background: #FFF; }
+  .m-api .u-interface .ant-tag {
+    width: 50px;
+    text-align: center; }
+  .m-api .u-interface .info {
+    display: flex;
+    justify-content: space-between; }
+  .m-api .u-interface .url {
+    font-weight: bold; }
+  .m-api .u-interface .name {
+    margin-left: 5px; }
+  .m-api .u-interface .content {
+    height: auto;
+    overflow: hidden; }
+  .m-api .u-interface.collapse .content {
+    height: 0; }

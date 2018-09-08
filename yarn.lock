@@ -86,6 +86,10 @@
   version "2.0.1"
   resolved "http://registry.npm.taobao.org/@types/clipboard/download/@types/clipboard-2.0.1.tgz#75a74086c293d75b12bc93ff13bc7797fef05a40"
 
+"@types/codemirror@^0.0.60":
+  version "0.0.60"
+  resolved "http://registry.npm.taobao.org/@types/codemirror/download/@types/codemirror-0.0.60.tgz#178f69f2b87253aedb03518b99c20298420a3aa3"
+
 "@types/history@*":
   version "4.6.2"
   resolved "http://registry.npm.taobao.org/@types/history/download/@types/history-4.6.2.tgz#12cfaba693ba20f114ed5765467ff25fdf67ddb0"
@@ -1735,6 +1739,10 @@ coa@~1.0.1:
 code-point-at@^1.0.0:
   version "1.1.0"
   resolved "http://registry.npm.taobao.org/code-point-at/download/code-point-at-1.1.0.tgz#0d070b4d043a5bea33a2f1a40e2edb3d9a4ccf77"
+
+codemirror@^5.40.0:
+  version "5.40.0"
+  resolved "http://registry.npm.taobao.org/codemirror/download/codemirror-5.40.0.tgz#2f5ed47366e514f41349ba0fe34daaa39be4e257"
 
 collection-visit@^1.0.0:
   version "1.0.0"
