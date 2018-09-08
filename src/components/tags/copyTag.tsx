@@ -20,7 +20,7 @@ class CopyTag extends React.Component<CopyTagProps> {
   };
 
   handleClick() {
-    localStorage.lastCopy = this.props.content;
+    localStorage.setItem('lastCopy', this.props.content);
     copy(this.props.content).then(() => {
       message.success(this.props.successTip);
     }).catch(message.error);
